@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
+import { TextShimmer } from '@/components/ui/text-shimmer';
 
 const HeroSection = () => {
   return (
@@ -24,7 +25,12 @@ const HeroSection = () => {
       
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         <h1 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight !text-white drop-shadow-lg">
-          Unleash Your Inner Radiance
+          <TextShimmer
+            className="[--base-color:theme(colors.white)] [--base-gradient-color:theme(colors.stone.300)] dark:[--base-color:theme(colors.white)] dark:[--base-gradient-color:theme(colors.stone.400)]"
+            duration={3}
+          >
+            Unleash Your Inner Radiance
+          </TextShimmer>
         </h1>
         <p className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
           Exquisite Hair & Beauty in Dandenong, Victoria.
