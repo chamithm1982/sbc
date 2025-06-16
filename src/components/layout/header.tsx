@@ -24,6 +24,14 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on pathname change
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
@@ -36,10 +44,10 @@ const Header = () => {
             <span>Salon B Curls</span>
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-2 lg:space-x-4">
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {NAV_LINKS.map((link) =>
               link.isButton ? (
-                <Button key={link.label} asChild size="lg" className="font-body text-base rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <Button key={link.label} asChild size="lg" className="font-body text-base rounded-lg shadow-md hover:shadow-lg transition-shadow ml-2">
                   <Link href={link.href}>{link.label}</Link>
                 </Button>
               ) : (
@@ -47,15 +55,17 @@ const Header = () => {
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    "px-3 py-2 rounded-md text-base font-medium font-body hover:text-primary transition-colors",
-                    (pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))) ? "text-primary font-semibold" : "text-foreground/80"
+                    "px-3 py-2 rounded-md font-medium font-body hover:text-primary transition-colors text-lg",
+                    (pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href) && link.href.length > 1)) ? "text-primary font-semibold" : "text-foreground/80"
                   )}
                 >
                   {link.label}
                 </Link>
               )
             )}
-            <DarkModeToggle />
+            <div className="ml-2">
+              <DarkModeToggle />
+            </div>
           </nav>
 
           <div className="md:hidden flex items-center">
@@ -79,7 +89,7 @@ const Header = () => {
                 className={cn(
                   "block px-4 py-3 rounded-lg text-lg font-medium font-body transition-colors",
                    link.isButton ? "bg-primary text-primary-foreground text-center hover:bg-primary/90" : "hover:bg-accent hover:text-accent-foreground",
-                  (pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))) && !link.isButton ? "bg-accent text-accent-foreground font-semibold" : "text-foreground"
+                  (pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href) && link.href.length > 1)) && !link.isButton ? "bg-accent text-accent-foreground font-semibold" : "text-foreground"
                 )}
               >
                 {link.label}

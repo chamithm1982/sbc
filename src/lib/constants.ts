@@ -1,4 +1,4 @@
-import { Leaf, Scissors, Sparkles, Users, Star, Crown, Check } from 'lucide-react';
+import { Leaf, Scissors, Sparkles, Users, Star, Crown, Check, MessageSquareQuote, HelpCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface NavLinkItem {
@@ -9,10 +9,11 @@ export interface NavLinkItem {
 
 export const NAV_LINKS: NavLinkItem[] = [
   { href: '/', label: 'Home' },
-  { href: '#services', label: 'Services' },
-  { href: '#about', label: 'About Us' },
-  { href: '#contact', label: 'Contact' },
-  { href: '#book', label: 'Book Now', isButton: true },
+  { href: '/#services', label: 'Services' },
+  { href: '/#about', label: 'About Us' },
+  { href: '/location', label: 'Visit Us' },
+  { href: '/#contact', label: 'Contact' },
+  { href: '/#book', label: 'Book Now', isButton: true },
 ];
 
 export interface Service {
@@ -21,6 +22,7 @@ export interface Service {
   description: string;
   longDescription?: string;
   image?: string;
+  dataAiHint?: string;
   icon?: LucideIcon;
   ctaText?: string;
   ctaLink?: string;
@@ -77,7 +79,7 @@ export const SERVICE_PACKAGES_DATA: ServicePackage[] = [
     name: 'Radiance Revival Package',
     description: 'A complete transformation journey for your hair and skin.',
     longDescription: 'Embark on a holistic beauty experience with our Radiance Revival Package. This curated journey includes a personalized hair consultation, precision cut, custom color service, and a signature rejuvenating facial. It\'s designed to leave you feeling completely pampered, confident, and radiant from head to toe.',
-    icon: Users,
+    icon: Users, // Consider a more "package" or "luxury" icon if available
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'beauty package',
     badge: 'SPECIAL',
@@ -177,6 +179,76 @@ export const OPENING_HOURS = [
 ];
 
 export const SOCIAL_LINKS = [
-  { name: 'Facebook', url: 'https://facebook.com/salonbcurls', icon: 'facebook' }, // Placeholder for actual icon component
-  { name: 'Instagram', url: 'https://instagram.com/salonbcurls', icon: 'instagram' }, // Placeholder
+  { name: 'Facebook', url: 'https://facebook.com/salonbcurls', icon: 'facebook' },
+  { name: 'Instagram', url: 'https://instagram.com/salonbcurls', icon: 'instagram' },
+];
+
+export interface Testimonial {
+  id: string;
+  quote: string;
+  name: string;
+  image?: string;
+  dataAiHint?: string;
+  stars: number;
+}
+
+export const TESTIMONIALS_DATA: Testimonial[] = [
+  {
+    id: 'jane-d',
+    quote: "Salon B Curls is my absolute go-to! Justin is a hair magician, and I always leave feeling like a new woman. The atmosphere is so relaxing and luxurious.",
+    name: "Jane D.",
+    image: "https://placehold.co/100x100.png",
+    dataAiHint: "woman smiling",
+    stars: 5,
+  },
+  {
+    id: 'sarah-p',
+    quote: "I had the Radiance Revival Package and it was divine. My skin is glowing and my hair has never looked better. Highly recommend for a proper pampering session!",
+    name: "Sarah P.",
+    image: "https://placehold.co/100x100.png",
+    dataAiHint: "happy client",
+    stars: 5,
+  },
+  {
+    id: 'lisa-m',
+    quote: "The team is so professional and truly listens to what you want. I love my new color, and the salon itself is beautiful. A wonderful experience every time.",
+    name: "Lisa M.",
+    image: "https://placehold.co/100x100.png",
+    dataAiHint: "satisfied customer",
+    stars: 5,
+  }
+];
+
+export interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export const FAQ_DATA: FaqItem[] = [
+  {
+    id: 'faq1',
+    question: 'What are your opening hours?',
+    answer: 'We are open Tuesday to Friday from 9 AM to 6 PM (Thursdays late night until 8 PM), and Saturdays from 8:30 AM to 4 PM. We are closed on Mondays and Sundays.'
+  },
+  {
+    id: 'faq2',
+    question: 'Do I need to book an appointment?',
+    answer: 'Yes, we highly recommend booking an appointment in advance to ensure availability, especially for longer services or specific stylists. You can book by calling us or using the "Book Now" button on our website.'
+  },
+  {
+    id: 'faq3',
+    question: 'What is your cancellation policy?',
+    answer: 'We kindly request at least 24 hours notice for any cancellations or rescheduling. This allows us to offer the appointment slot to other clients. Late cancellations or no-shows may be subject to a fee.'
+  },
+  {
+    id: 'faq4',
+    question: 'Where are you located and is there parking?',
+    answer: 'We are located at 123 Curl Street, Dandenong, VIC 3175. There is on-street parking available, as well as nearby public parking lots. Please refer to our "Visit Us" page for more detailed directions and parking information.'
+  },
+  {
+    id: 'faq5',
+    question: 'What products do you use?',
+    answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
+  }
 ];
