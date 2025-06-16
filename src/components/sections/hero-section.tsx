@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -27,7 +28,7 @@ const HeroSection = () => {
         <p className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
           Exquisite Hair & Beauty in Dandenong, Victoria.
         </p>
-        <p className="font-body text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-10 !text-white/80 leading-relaxed drop-shadow-sm">
+        <p className="font-body text-xs max-w-3xl mx-auto mb-10 !text-white/80 leading-relaxed drop-shadow-sm">
           Escape the Everyday. At Salon B Curls, we craft personalized hair and rejuvenating skin experiences designed to restore your glow and empower your confidence. Step in, unwind, and leave feeling utterly renewed and exquisitely beautiful.
         </p>
         
