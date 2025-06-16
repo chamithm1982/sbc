@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -34,10 +35,9 @@ const Header = () => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
-      isScrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
+      "sticky top-0 z-50 w-full transition-all duration-300 bg-background/80 backdrop-blur-md shadow-md rounded-b-xl"
     )}>
-      <div className="container mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="container mx-auto px-8 sm:px-10 lg:px-12">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center space-x-2 text-2xl font-headline font-bold text-primary hover:text-primary/80 transition-colors">
             <Waves className="h-7 w-7" />
