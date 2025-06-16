@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -39,14 +40,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   isPackage = false,
 }) => {
   return (
-    <Card className="flex flex-col h-full rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-card">
+    <Card className="flex flex-col h-full rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-card group">
       {image && (
         <div className="relative w-full h-48">
           <Image 
             src={image} 
             alt={name} 
-            layout="fill" 
-            objectFit="cover" 
+            fill={true}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
             className="transition-transform duration-300 group-hover:scale-105"
             data-ai-hint={dataAiHint || 'service beauty'}
           />

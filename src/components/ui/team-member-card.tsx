@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -13,14 +14,15 @@ interface TeamMemberCardProps {
 
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ name, title, bio, image, dataAiHint }) => {
   return (
-    <Card className="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden text-center bg-card">
+    <Card className="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden text-center bg-card group">
       <CardHeader className="p-0">
         <div className="relative w-full aspect-square">
           <Image
             src={image}
             alt={name}
-            layout="fill"
-            objectFit="cover"
+            fill={true}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
             className="transition-transform duration-300 group-hover:scale-105"
             data-ai-hint={dataAiHint || 'person portrait'}
           />

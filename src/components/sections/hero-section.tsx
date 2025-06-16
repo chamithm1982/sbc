@@ -12,8 +12,9 @@ const HeroSection = () => {
       <Image
         src="/service1.png"
         alt="Serene salon interior or beautifully styled hair"
-        layout="fill"
-        objectFit="cover"
+        fill={true}
+        sizes="100vw"
+        style={{ objectFit: 'cover' }}
         quality={90}
         priority
         className="z-0"
