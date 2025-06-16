@@ -12,18 +12,9 @@ import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Close mobile menu on pathname change
   useEffect(() => {
@@ -35,7 +26,8 @@ const Header = () => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300 bg-background/80 backdrop-blur-md shadow-md rounded-b-xl"
+      "sticky top-0 z-50 w-full transition-all duration-300",
+      "bg-background/95 backdrop-blur-sm shadow-lg rounded-b-xl pt-[10px]" // Added pt-[10px]
     )}>
       <div className="container mx-auto px-8 sm:px-10 lg:px-12">
         <div className="flex items-center justify-between h-20">
@@ -103,3 +95,4 @@ const Header = () => {
 };
 
 export default Header;
+    
