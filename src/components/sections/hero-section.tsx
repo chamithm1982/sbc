@@ -10,7 +10,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center text-center text-white overflow-hidden">
       <Image
-        src="https://placehold.co/1920x1080.png"
+        src="/service1.png"
         alt="Serene salon interior or beautifully styled hair"
         layout="fill"
         objectFit="cover"
