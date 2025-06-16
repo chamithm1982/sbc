@@ -1,3 +1,4 @@
+
 import { Leaf, Scissors, Sparkles, Users, Star, Crown, Check, MessageSquareQuote, HelpCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -41,7 +42,7 @@ export const SERVICES_DATA: Service[] = [
     description: 'Bespoke cuts and styling to perfectly suit your features and lifestyle.',
     longDescription: 'Our expert stylists begin with a thorough consultation to understand your hair type, face shape, and personal style. We then craft a precision cut that enhances your natural beauty and is easy to manage. Whether you desire a classic look or a modern trend, we deliver exceptional results. Styling services range from blowouts to elegant updos for special occasions.',
     icon: Scissors,
-    image: 'https://placehold.co/600x400.png',
+    image: '/service1.png',
     dataAiHint: 'hair styling',
     ctaText: 'Book Haircut',
     ctaLink: '#book',
@@ -252,3 +253,5 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
+
+    
