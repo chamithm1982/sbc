@@ -54,8 +54,8 @@ export const SERVICES_DATA: Service[] = [
     description: 'From rich brunettes to radiant blondes, achieve your dream hair color.',
     longDescription: 'Experience the art of hair coloring with our skilled colorists. We use premium, gentle products to achieve vibrant, long-lasting color while maintaining the health of your hair. Services include full color, highlights, balayage, ombre, and color correction. We specialize in creating natural-looking dimension and shine.',
     icon: Sparkles,
-   // image: 'https://placehold.co/600x400.png',
     image: '/service2.png',
+    dataAiHint: 'hair coloring',
     ctaText: 'Book Coloring',
     ctaLink: '#book',
     price: 'From $120'
@@ -80,8 +80,7 @@ export const SERVICE_PACKAGES_DATA: ServicePackage[] = [
     name: 'Radiance Revival Package',
     description: 'A complete transformation journey for your hair and skin.',
     longDescription: 'Embark on a holistic beauty experience with our Radiance Revival Package. This curated journey includes a personalized hair consultation, precision cut, custom color service, and a signature rejuvenating facial. It\'s designed to leave you feeling completely pampered, confident, and radiant from head to toe.',
-    icon: Users, // Consider a more "package" or "luxury" icon if available
-    //image: 'https://placehold.co/600x400.png',
+    icon: Users,
     image: '/service3.png',
     dataAiHint: 'beauty package',
     badge: 'SPECIAL',
@@ -254,5 +253,3 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
-
-    
