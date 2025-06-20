@@ -6,8 +6,17 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
 import { TextShimmer } from '@/components/ui/text-shimmer';
+import { useEffect } from 'react';
+import { renderCanvas } from '@/components/ui/canvas';
 
 const HeroSection = () => {
+  useEffect(() => {
+    // Ensure canvas is only rendered on client-side and after mount
+    if (typeof window !== 'undefined') {
+      renderCanvas();
+    }
+  }, []);
+
   return (
     <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center text-center text-white overflow-hidden">
       <Image
@@ -21,7 +30,9 @@ const HeroSection = () => {
         className="z-0"
         data-ai-hint="salon interior"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-10"></div>
+      {/* Canvas for animation - positioned behind text but potentially above image overlay */}
+      <canvas id="canvas" className="absolute inset-0 w-full h-full z-10 pointer-events-none"></canvas>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-5"></div>
       
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         <h1 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight !text-white drop-shadow-lg">
@@ -41,7 +52,7 @@ const HeroSection = () => {
         
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-body font-semibold text-lg py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
           <Link href="#book">
-            Ready for Your Transformation? Book Your Complimentary, Personalized Consultation Today!
+            Book Today!
           </Link>
         </Button>
 
