@@ -11,7 +11,7 @@ export interface NavLinkItem {
 export const NAV_LINKS: NavLinkItem[] = [
   { href: '/', label: 'Home' },
   { href: '/#services', label: 'Services' },
-  { href: '/#about', label: 'About Us' },
+  { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
   { href: '/#book', label: 'Book Now', isButton: true },
 ];
