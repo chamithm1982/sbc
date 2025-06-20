@@ -110,10 +110,10 @@ export const TEAM_DATA: TeamMember[] = [
     dataAiHint: 'hairstylist portrait',
   },
   {
-    id: 'emily-carter',
-    name: 'Emily Carter',
+    id: 'thilanka',
+    name: 'Thilanka',
     title: 'Senior Colourist & Stylist',
-    bio: 'Emily is a creative force, known for her beautiful balayage work and ability to craft personalized color that enhances natural beauty.',
+    bio: 'Thilanka is a creative force, known for beautiful balayage work and ability to craft personalized color that enhances natural beauty.',
     image: 'https://placehold.co/400x400.png',
     dataAiHint: 'woman portrait',
   },
