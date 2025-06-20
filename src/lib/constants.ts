@@ -102,10 +102,10 @@ export interface TeamMember {
 
 export const TEAM_DATA: TeamMember[] = [
   {
-    id: 'justin-pace',
-    name: 'Justin Pace',
+    id: 'suresh',
+    name: 'Suresh',
     title: 'Lead Stylist & Founder',
-    bio: 'With over 15 years of experience and multiple awards, Justin brings passion and precision to every client interaction, specializing in transformative hair artistry.',
+    bio: 'With over 15 years of experience and multiple awards, Suresh brings passion and precision to every client interaction, specializing in transformative hair artistry.',
     image: 'https://placehold.co/400x400.png',
     dataAiHint: 'hairstylist portrait',
   },
@@ -196,7 +196,7 @@ export interface Testimonial {
 export const TESTIMONIALS_DATA: Testimonial[] = [
   {
     id: 'jane-d',
-    quote: "Salon B Curls is my absolute go-to! Justin is a hair magician, and I always leave feeling like a new woman. The atmosphere is so relaxing and luxurious.",
+    quote: "Salon B Curls is my absolute go-to! Suresh is a hair magician, and I always leave feeling like a new woman. The atmosphere is so relaxing and luxurious.",
     name: "Jane D.",
     image: "https://placehold.co/100x100.png",
     dataAiHint: "woman smiling",
