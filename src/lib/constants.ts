@@ -166,7 +166,7 @@ export const CONTACT_DETAILS = {
   email: 'bookings@salonbcurls.com.au',
   addressLine1: '123 Curl Street',
   addressLine2: 'Dandenong, VIC 3175, Australia',
-  mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20100.86872580875!2d145.20165039401777!3d-37.98200055278451!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad615a1a0b3f8a7%3A0x5045675218cd0e0!2sDandenong%20VIC%203175%2C%20Australia!5e0!3m2!1sen!2sus!4v1626891000000!5m2!1sen!2sus'
+  mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50341.69614760088!2d145.1843513486328!3d-37.986422700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad615a1a0b3f8a7%3A0x5045675218cd0e0!2sDandenong%20VIC%203175!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus'
 };
 
 export const OPENING_HOURS = [
@@ -253,3 +253,4 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
+
