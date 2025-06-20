@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X, Waves } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import { NAV_LINKS } from '@/lib/constants';
 import { DarkModeToggle } from '@/components/dark-mode-toggle';
 import { cn } from '@/lib/utils';
@@ -26,28 +26,37 @@ const Header = () => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
-      "bg-background/95 backdrop-blur-sm shadow-lg rounded-b-xl pt-[10px]" // Added pt-[10px]
+      "sticky top-0 z-50 transition-all duration-300",
+      "bg-background/95 backdrop-blur-sm shadow-xl rounded-full", // Pill shape, shadow, and background
+      "mt-3 sm:mt-4 md:mt-5 lg:mt-6", // Top margin for floating effect
+      "mx-auto w-11/12 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-2xl" // Centering and responsive max width
     )}>
-      <div className="container mx-auto px-8 sm:px-10 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center space-x-2 text-2xl font-headline font-bold text-primary hover:text-primary/80 transition-colors">
-            <Waves className="h-7 w-7" />
+      <div className="w-full px-4 sm:px-6"> {/* Inner padding for the pill content */}
+        <div className="flex items-center justify-between h-16"> {/* Content flex container & height */}
+          <Link href="/" className="flex items-center space-x-2 text-xl sm:text-2xl font-headline font-bold text-primary hover:text-primary/80 transition-colors">
+            <Waves className="h-6 w-6 sm:h-7 sm:w-7" />
             <span>Salon B Curls</span>
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-1">
             {NAV_LINKS.map((link) =>
               link.isButton ? (
-                <Button key={link.label} asChild size="lg" className="font-body text-base rounded-lg shadow-md hover:shadow-lg transition-shadow ml-2">
-                  <Link href={link.href}>{link.label}</Link>
-                </Button>
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={cn(
+                    buttonVariants({ size: 'default' }), // Apply button styles directly
+                    "font-body text-sm rounded-lg shadow-md hover:shadow-lg transition-shadow ml-1 px-3 py-1.5 h-auto"
+                  )}
+                >
+                  {link.label}
+                </Link>
               ) : (
                 <Link
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    "px-3 py-2 rounded-md font-medium font-body hover:text-primary transition-colors text-lg",
+                    "px-2.5 py-1.5 rounded-md font-medium font-body hover:text-primary transition-colors text-base",
                     (pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href) && link.href.length > 1)) ? "text-primary font-semibold" : "text-foreground/80"
                   )}
                 >
@@ -55,15 +64,15 @@ const Header = () => {
                 </Link>
               )
             )}
-            <div className="ml-2">
+            <div className="ml-1 sm:ml-2">
               <DarkModeToggle />
             </div>
           </nav>
 
           <div className="md:hidden flex items-center">
             <DarkModeToggle />
-            <Button variant="ghost" size="icon" onClick={toggleMobileMenu} aria-label="Toggle mobile menu" className="ml-2">
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <Button variant="ghost" size="icon" onClick={toggleMobileMenu} aria-label="Toggle mobile menu" className="ml-2 w-8 h-8 sm:w-9 sm:w-9">
+              {isMobileMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
             </Button>
           </div>
         </div>
@@ -71,15 +80,18 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-background shadow-lg rounded-b-xl border-t border-border">
-          <nav className="flex flex-col space-y-2 p-4">
+        <div className={cn(
+          "md:hidden absolute top-full left-0 w-full",
+          "mt-2 bg-background shadow-xl rounded-2xl border border-border"
+        )}>
+          <nav className="flex flex-col space-y-1 p-3">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
-                  "block px-4 py-3 rounded-lg text-lg font-medium font-body transition-colors",
+                  "block px-3 py-2.5 rounded-lg text-base font-medium font-body transition-colors",
                    link.isButton ? "bg-primary text-primary-foreground text-center hover:bg-primary/90" : "hover:bg-accent hover:text-accent-foreground",
                   (pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href) && link.href.length > 1)) && !link.isButton ? "bg-accent text-accent-foreground font-semibold" : "text-foreground"
                 )}
@@ -95,4 +107,3 @@ const Header = () => {
 };
 
 export default Header;
-    
