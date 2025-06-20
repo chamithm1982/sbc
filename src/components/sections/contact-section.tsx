@@ -15,7 +15,7 @@ const ContactSection = () => {
           <h2 className="font-headline text-4xl md:text-5xl font-bold text-foreground mb-4">
             Get In Touch
           </h2>
-          <p className="font-body text-lg md:text-xl text-accent-foreground/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-body text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto leading-relaxed">
             We&apos;re here to answer any questions you may have. Reach out to us and we&apos;ll respond as soon as we can.
           </p>
         </div>
