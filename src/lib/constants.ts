@@ -170,13 +170,13 @@ export const CONTACT_DETAILS = {
 };
 
 export const OPENING_HOURS = [
-  { day: 'Monday', hours: 'Closed' },
-  { day: 'Tuesday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Wednesday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Thursday', hours: '10:00 AM - 8:00 PM (Late Night)' },
-  { day: 'Friday', hours: '9:00 AM - 6:00 PM' },
-  { day: 'Saturday', hours: '8:30 AM - 4:00 PM' },
-  { day: 'Sunday', hours: 'Closed' },
+  { day: 'Monday', hours: '10:00 AM - 6:00 PM' },
+  { day: 'Tuesday', hours: '10:00 AM - 6:00 PM' },
+  { day: 'Wednesday', hours: '10:00 AM - 6:00 PM' },
+  { day: 'Thursday', hours: '10:00 AM - 6:00 PM' },
+  { day: 'Friday', hours: '10:00 AM - 6:00 PM' },
+  { day: 'Saturday', hours: '10:00 AM - 6:00 PM' },
+  { day: 'Sunday', hours: '10:00 AM - 6:00 PM' },
 ];
 
 export const SOCIAL_LINKS = [
@@ -230,7 +230,7 @@ export const FAQ_DATA: FaqItem[] = [
   {
     id: 'faq1',
     question: 'What are your opening hours?',
-    answer: 'We are open Tuesday to Friday from 9 AM to 6 PM (Thursdays late night until 8 PM), and Saturdays from 8:30 AM to 4 PM. We are closed on Mondays and Sundays.'
+    answer: 'We are open every day from 10:00 AM to 6:00 PM.'
   },
   {
     id: 'faq2',
