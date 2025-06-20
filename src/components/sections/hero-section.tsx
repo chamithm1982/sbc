@@ -18,7 +18,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center text-center text-white overflow-hidden">
+    <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center text-center text-white mt-[-100px]">
       <Image
         src="/service1.png"
         alt="Serene salon interior or beautifully styled hair"
@@ -27,12 +27,11 @@ const HeroSection = () => {
         style={{ objectFit: 'cover' }}
         quality={90}
         priority
-        className="z-0"
+        className="fixed inset-0 z-[-3]"
         data-ai-hint="salon interior"
       />
-      {/* Canvas for animation - positioned behind text but potentially above image overlay */}
-      <canvas id="canvas" className="absolute inset-0 w-full h-full z-10 pointer-events-none"></canvas>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-5"></div>
+      <canvas id="canvas" className="fixed inset-0 w-full h-full z-[-2] pointer-events-none"></canvas>
+      <div className="fixed inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-[-1]"></div>
       
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-36 lg:pt-40 pb-16 md:pb-20 lg:pb-24">
         <h1 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight !text-white drop-shadow-lg">
@@ -70,3 +69,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
