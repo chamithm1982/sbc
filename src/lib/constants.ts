@@ -70,7 +70,7 @@ export const SERVICES_DATA: Service[] = [
     dataAiHint: 'skin treatment',
     ctaText: 'Book Skin Therapy',
     ctaLink: '#book',
-    price: 'From $95'
+    price: 'From $349'
   },
 ];
 
@@ -79,7 +79,7 @@ export const SERVICE_PACKAGES_DATA: ServicePackage[] = [
     id: 'radiance-revival',
     name: 'Radiance Revival Package',
     description: 'A complete transformation journey for your hair and skin.',
-    longDescription: 'Embark on a holistic beauty experience with our Radiance Revival Package. This curated journey includes a personalized hair consultation, precision cut, custom color service, and a signature rejuvenating facial. It\'s designed to leave you feeling completely pampered, confident, and radiant from head to toe.',
+    longDescription: 'Embark on a holistic beauty experience with our Radiance Revival Package. This curated journey includes a personalized hair consultation, precision cut, custom color service, and a signature rejuvenating facial. It\'s designed to leave you completely pampered, confident, and radiant from head to toe.',
     icon: Users,
     image: '/service3.png',
     dataAiHint: 'beauty package',
