@@ -1,3 +1,4 @@
+
 "use client";
 
 import { CONTACT_DETAILS, OPENING_HOURS } from '@/lib/constants';
@@ -11,7 +12,7 @@ const ContactSection = () => {
     <section id="contact" className="py-16 md:py-24 bg-accent/50 dark:bg-accent/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">
+          <h2 className="font-headline text-4xl md:text-5xl font-bold text-foreground mb-4">
             Get In Touch
           </h2>
           <p className="font-body text-lg md:text-xl text-accent-foreground/80 max-w-2xl mx-auto leading-relaxed">
