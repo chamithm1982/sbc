@@ -58,7 +58,7 @@ export const SERVICES_DATA: Service[] = [
     dataAiHint: 'hair coloring',
     ctaText: 'Book Coloring',
     ctaLink: '#book',
-    price: 'From $120'
+    price: 'From $250'
   },
   {
     id: 'skintreatment',
@@ -253,3 +253,4 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
+
