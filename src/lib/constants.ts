@@ -253,4 +253,3 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
-
