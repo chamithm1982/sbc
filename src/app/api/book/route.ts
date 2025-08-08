@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     // Using a reliable public test webhook (webhook.site) for demonstration.
     // This allows us to confirm the application code is working correctly.
     // The user should replace this with their own active N8N_WEBHOOK_URL.
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://webhook.site/d275f922-5444-4348-a010-0969566a7576';
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/263c5ea4-dd81-4768-bc94-cc36cb641802';
 
     // Forward the data to the webhook.
     const webhookResponse = await fetch(n8nWebhookUrl, {
@@ -44,3 +44,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Internal Server Error', error: errorMessage }, { status: 500 });
   }
 }
+
