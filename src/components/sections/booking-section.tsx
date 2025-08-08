@@ -36,7 +36,7 @@ import { format } from 'date-fns';
 import { SERVICES_DATA, SERVICE_PACKAGES_DATA } from '@/lib/constants';
 import { useFormState, useFormStatus } from 'react-dom';
 import { submitBooking, FormState } from '@/app/actions';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 const FormSchema = z.object({
@@ -90,37 +90,25 @@ export default function BookingSection() {
     success: false,
   });
 
-  const { pending } = useFormStatus();
-
-
   useEffect(() => {
-    if (form.formState.isSubmitSuccessful && state.success) {
-      toast({
-        title: 'Request Sent!',
-        description: state.message,
-      });
-      form.reset();
-    } else if (state.message && !state.success) {
-      toast({
-        title: 'Error',
-        description: state.message,
-        variant: 'destructive',
-      });
+    if (state.message) {
+      if (state.success) {
+        toast({
+          title: 'Request Sent!',
+          description: state.message,
+        });
+        form.reset();
+        formRef.current?.reset();
+      } else {
+        toast({
+          title: 'Error',
+          description: state.message,
+          variant: 'destructive',
+        });
+      }
     }
   }, [state, form, toast]);
   
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('email', data.email);
-    formData.append('service', data.service);
-    formData.append('preferredDate', data.preferredDate.toISOString());
-    if (data.message) {
-      formData.append('message', data.message);
-    }
-    formAction(formData);
-  };
-
   return (
     <section id="book" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,7 +127,6 @@ export default function BookingSection() {
                 <form
                   ref={formRef}
                   action={formAction}
-                  onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-6 font-body"
                 >
                   <FormField
@@ -174,7 +161,7 @@ export default function BookingSection() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Service You're Inquiring About</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} defaultValue={field.value} name={field.name}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a service" />
@@ -227,6 +214,8 @@ export default function BookingSection() {
                             />
                           </PopoverContent>
                         </Popover>
+                        {/* Hidden input to pass date to server action */}
+                        <input type="hidden" name={field.name} value={field.value?.toISOString()} />
                         <FormMessage />
                       </FormItem>
                     )}
