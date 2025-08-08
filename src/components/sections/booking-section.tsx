@@ -215,7 +215,7 @@ export default function BookingSection() {
                           </PopoverContent>
                         </Popover>
                         {/* Hidden input to pass date to server action */}
-                        <input type="hidden" name={field.name} value={field.value?.toISOString()} />
+                        <input type="hidden" name={field.name} value={field.value?.toISOString() || ''} />
                         <FormMessage />
                       </FormItem>
                     )}
