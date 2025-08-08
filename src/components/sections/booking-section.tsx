@@ -34,9 +34,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { SERVICES_DATA, SERVICE_PACKAGES_DATA } from '@/lib/constants';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormStatus } from 'react-dom';
 import { submitBooking, FormState } from '@/app/actions';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useActionState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 const FormSchema = z.object({
@@ -85,7 +85,7 @@ export default function BookingSection() {
     },
   });
 
-  const [state, formAction] = useFormState<FormState, FormData>(submitBooking, {
+  const [state, formAction] = useActionState<FormState, FormData>(submitBooking, {
     message: '',
     success: false,
   });
