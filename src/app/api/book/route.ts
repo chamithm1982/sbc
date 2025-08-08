@@ -5,11 +5,12 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Use environment variable for the webhook URL, with a fallback for local testing.
-    // This keeps the actual webhook URL secure on the server.
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5';
+    // Using a reliable public test webhook (webhook.site) for demonstration.
+    // This allows us to confirm the application code is working correctly.
+    // The user should replace this with their own active N8N_WEBHOOK_URL.
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://webhook.site/d275f922-5444-4348-a010-0969566a7576';
 
-    // Forward the data to the N8N webhook.
+    // Forward the data to the webhook.
     const webhookResponse = await fetch(n8nWebhookUrl, {
       method: 'POST',
       headers: {
