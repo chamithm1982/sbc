@@ -58,7 +58,7 @@ const ContactSection = () => {
                 </ul>
               </div>
               <Button asChild size="lg" className="w-full mt-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg">
-                <Link href="#book">Book Appointment</Link>
+                <Link href="/location">Find Us On Map</Link>
               </Button>
             </CardContent>
           </Card>
