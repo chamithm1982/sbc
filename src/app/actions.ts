@@ -35,7 +35,7 @@ export async function submitBooking(
     };
   }
 
-  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.example.com/webhook/your-id'; // IMPORTANT: Replace with your actual N8N webhook URL or set it as an environment variable.
+  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5'; // IMPORTANT: Replace with your actual N8N webhook URL or set it as an environment variable.
 
   try {
     const response = await fetch(n8nWebhookUrl, {
