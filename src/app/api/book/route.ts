@@ -1,0 +1,37 @@
+
+import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+
+    // Use environment variable for the webhook URL, with a fallback for local testing.
+    // This keeps the actual webhook URL secure on the server.
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5';
+
+    // Forward the data to the N8N webhook.
+    const webhookResponse = await fetch(n8nWebhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    // Check if the webhook call was successful.
+    if (!webhookResponse.ok) {
+      const errorText = await webhookResponse.text();
+      // Throw a detailed error to be caught by the catch block
+      console.error(`Webhook response was not ok: ${webhookResponse.status} ${webhookResponse.statusText} - Body: ${errorText}`);
+      return NextResponse.json({ message: 'Failed to send data to webhook.' }, { status: 500 });
+    }
+
+    // Return a success response to the server action.
+    return NextResponse.json({ message: 'Successfully forwarded to webhook' }, { status: 200 });
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    console.error('Error in /api/book route:', errorMessage);
+    return NextResponse.json({ message: 'Internal Server Error', error: errorMessage }, { status: 500 });
+  }
+}

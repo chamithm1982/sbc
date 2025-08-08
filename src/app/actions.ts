@@ -53,12 +53,15 @@ export async function submitBooking(
     };
   }
   
-  // Use environment variable for the webhook URL, with a fallback for local testing.
-  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5'; 
+  // This should be the absolute URL of your deployed application.
+  // Using a relative URL will work for client-side, but server-side actions need the full URL.
+  // For local development, this will be http://localhost:9002
+  const host = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 'http://localhost:9002';
+  const apiUrl = `${host}/api/book`;
 
   try {
-    // Send the validated data to the webhook.
-    const response = await fetch(n8nWebhookUrl, {
+    // Send the validated data to our own API route.
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,20 +69,20 @@ export async function submitBooking(
       body: JSON.stringify(validatedFields.data),
     });
 
-    // Check if the webhook call was successful.
+    // Check if the API route call was successful.
     if (!response.ok) {
-      const errorText = await response.text();
-      // Throw a detailed error to be caught by the catch block
-      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText} - Body: ${errorText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.message || `API route response was not ok: ${response.status}`);
     }
     
     // Return a success message.
     return { message: 'Thank you! Your booking request has been sent.', success: true };
-  } catch (error) {
+  } catch (error: unknown) {
     // Log the detailed error for debugging purposes.
-    console.error('Error submitting to N8N webhook:', error);
+    console.error('Error submitting to the /api/book route:', error);
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
     return {
-      message: 'Sorry, there was a problem sending your request. Please try again later.',
+      message: `Sorry, there was a problem sending your request. Please try again later.`,
       success: false,
     };
   }
