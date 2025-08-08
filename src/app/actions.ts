@@ -34,6 +34,7 @@ export async function submitBooking(
   });
 
   if (!validatedFields.success) {
+    console.error('Validation failed:', validatedFields.error.flatten().fieldErrors);
     return {
       message: 'There was an error with your submission. Please check the fields.',
       success: false,
@@ -52,7 +53,8 @@ export async function submitBooking(
     });
 
     if (!response.ok) {
-      throw new Error(`Webhook response was not ok: ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText} - ${errorText}`);
     }
     
     return { message: 'Thank you! Your booking request has been sent.', success: true };

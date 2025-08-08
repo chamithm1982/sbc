@@ -149,7 +149,7 @@ export default function BookingSection() {
                       <FormItem>
                         <FormLabel>Email Address</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. jane.doe@example.com" {...field} />
+                          <Input type="email" placeholder="e.g. jane.doe@example.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
