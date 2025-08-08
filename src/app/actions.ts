@@ -82,7 +82,7 @@ export async function submitBooking(
     console.error('Error submitting to the /api/book route:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
     return {
-      message: `Sorry, there was a problem sending your request. Please try again later.`,
+      message: `Sorry, there was a problem sending your request. Error: ${errorMessage}`,
       success: false,
     };
   }

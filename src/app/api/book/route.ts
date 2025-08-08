@@ -21,9 +21,17 @@ export async function POST(request: Request) {
     // Check if the webhook call was successful.
     if (!webhookResponse.ok) {
       const errorText = await webhookResponse.text();
-      // Throw a detailed error to be caught by the catch block
-      console.error(`Webhook response was not ok: ${webhookResponse.status} ${webhookResponse.statusText} - Body: ${errorText}`);
-      return NextResponse.json({ message: 'Failed to send data to webhook.' }, { status: 500 });
+      let errorMessage = `Webhook response was not ok: ${webhookResponse.status} ${webhookResponse.statusText}`;
+      try {
+        // Try to parse the error response from N8N to get a more specific message
+        const errorJson = JSON.parse(errorText);
+        errorMessage = errorJson.message || errorMessage;
+      } catch (e) {
+        // If parsing fails, use the raw text
+        errorMessage += ` - Body: ${errorText}`;
+      }
+      console.error(errorMessage);
+      return NextResponse.json({ message: errorMessage }, { status: 500 });
     }
 
     // Return a success response to the server action.
