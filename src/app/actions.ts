@@ -20,22 +20,27 @@ export async function submitBooking(
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
-  const validatedFields = FormSchema.safeParse({
+  const rawData = {
     name: formData.get('name'),
     email: formData.get('email'),
     service: formData.get('service'),
-    preferredDate: new Date(formData.get('preferredDate') as string),
+    preferredDate: formData.get('preferredDate'),
     message: formData.get('message'),
+  };
+
+  const validatedFields = FormSchema.safeParse({
+    ...rawData,
+    preferredDate: rawData.preferredDate ? new Date(rawData.preferredDate as string) : undefined,
   });
 
   if (!validatedFields.success) {
     return {
-      message: 'There was an error with your submission.',
+      message: 'There was an error with your submission. Please check the fields.',
       success: false,
     };
   }
 
-  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5'; // IMPORTANT: Replace with your actual N8N webhook URL or set it as an environment variable.
+  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5'; 
 
   try {
     const response = await fetch(n8nWebhookUrl, {

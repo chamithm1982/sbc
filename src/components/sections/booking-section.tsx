@@ -34,7 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { SERVICES_DATA, SERVICE_PACKAGES_DATA } from '@/lib/constants';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import { submitBooking, FormState } from '@/app/actions';
 import { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
@@ -55,9 +55,24 @@ const FormSchema = z.object({
 
 const allServices = [...SERVICES_DATA, ...SERVICE_PACKAGES_DATA];
 
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button 
+      type="submit" 
+      size="lg" 
+      className="w-full bg-primary hover:bg-primary/90 rounded-lg text-lg"
+      disabled={pending}
+    >
+      {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      Request Appointment
+    </Button>
+  );
+}
+
+
 export default function BookingSection() {
   const { toast } = useToast();
-  const [isPending, setIsPending] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -75,27 +90,34 @@ export default function BookingSection() {
     success: false,
   });
 
+  const { pending } = useFormStatus();
+
+
   useEffect(() => {
-    if (!state.message) return;
-    
-    if (state.success) {
+    if (form.formState.isSubmitSuccessful && state.success) {
       toast({
         title: 'Request Sent!',
         description: state.message,
       });
       form.reset();
-    } else {
+    } else if (state.message && !state.success) {
       toast({
         title: 'Error',
         description: state.message,
         variant: 'destructive',
       });
     }
-    setIsPending(false);
-  }, [state, toast, form]);
+  }, [state, form, toast]);
   
-  const onFormSubmit = (formData: FormData) => {
-    setIsPending(true);
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('service', data.service);
+    formData.append('preferredDate', data.preferredDate.toISOString());
+    if (data.message) {
+      formData.append('message', data.message);
+    }
     formAction(formData);
   };
 
@@ -116,7 +138,8 @@ export default function BookingSection() {
               <Form {...form}>
                 <form
                   ref={formRef}
-                  action={onFormSubmit}
+                  action={formAction}
+                  onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-6 font-body"
                 >
                   <FormField
@@ -226,36 +249,7 @@ export default function BookingSection() {
                     )}
                   />
                   
-                  {/* Hidden inputs to pass validated data to server action */}
-                  <input type="hidden" {...form.register("name")} />
-                  <input type="hidden" {...form.register("email")} />
-                  <input type="hidden" {...form.register("service")} />
-                  <input type="hidden" {...form.register("preferredDate")} />
-                  <input type="hidden" {...form.register("message")} />
-
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full bg-primary hover:bg-primary/90 rounded-lg text-lg"
-                    disabled={isPending}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      form.handleSubmit(() => {
-                        if (formRef.current) {
-                           const formData = new FormData(formRef.current);
-                           // Manually set date because react-hook-form doesn't automatically for custom components
-                           const date = form.getValues('preferredDate');
-                           if(date) {
-                             formData.set('preferredDate', date.toISOString());
-                           }
-                           onFormSubmit(formData);
-                        }
-                      })(e);
-                    }}
-                  >
-                    {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Request Appointment
-                  </Button>
+                  <SubmitButton />
                 </form>
               </Form>
             </CardContent>
