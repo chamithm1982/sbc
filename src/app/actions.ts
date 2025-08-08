@@ -10,6 +10,7 @@ const FormSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
   service: z.string().min(1, { message: 'Please select a service.' }),
   preferredDate: z.string().transform((str, ctx) => {
+    // The date comes from `toISOString()`, so it's a valid format.
     const date = new Date(str);
     if (isNaN(date.getTime())) {
       ctx.addIssue({
@@ -53,7 +54,7 @@ export async function submitBooking(
   }
   
   // Use environment variable for the webhook URL, with a fallback for local testing.
-  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5'; 
+  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/e6d3f05a-3c25-4db0-ad72-6ad5c215ccd5'; 
 
   try {
     // Send the validated data to the webhook.
@@ -68,12 +69,14 @@ export async function submitBooking(
     // Check if the webhook call was successful.
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText} - ${errorText}`);
+      // Throw a detailed error to be caught by the catch block
+      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText} - Body: ${errorText}`);
     }
     
     // Return a success message.
     return { message: 'Thank you! Your booking request has been sent.', success: true };
   } catch (error) {
+    // Log the detailed error for debugging purposes.
     console.error('Error submitting to N8N webhook:', error);
     return {
       message: 'Sorry, there was a problem sending your request. Please try again later.',
