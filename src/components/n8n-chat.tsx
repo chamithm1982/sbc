@@ -7,43 +7,43 @@ import { createChat } from '@n8n/chat';
 
 const N8nChat = () => {
   useEffect(() => {
-    // This ensures the createChat function is called only on the client side.
+    // This ensures the code is called only on the client side.
     if (typeof window !== 'undefined') {
       
-      const customStyles = `
+      const customCss = `
         :root {
-          --chat--color-primary: hsl(30 48% 64%); /* Muted Brown */
-          --chat--color-primary-shade-50: hsla(30 48% 64% / 0.9);
-          --chat--color-primary-shade-100: hsla(30 48% 64% / 0.8);
-          
-          --chat--color-secondary: hsl(45 83% 90%); /* Pale Yellow */
-          --chat--color-secondary-shade-50: hsla(45 83% 90% / 0.9);
-
-          --chat--color-white: #ffffff;
-          --chat--color-light: hsl(53 83% 94%); /* Light Yellow BG */
-          --chat--color-dark: hsl(30 20% 25%); /* Dark Brown Text */
-
           /* Header & Toggle Button */
-          --chat--header--background: var(--chat--color-primary);
-          --chat--header--color: var(--chat--color-white);
-          --chat--toggle--background: var(--chat--color-primary);
-          --chat--toggle--color: var(--chat--color-white);
-          --chat--toggle--hover-background: var(--chat--color-primary-shade-50);
-          --chat--toggle--active-background: var(--chat--color-primary-shade-100);
+          --chat--header--background: hsl(30 48% 64%);
+          --chat--header--color: #ffffff;
+          --chat--toggle--background: hsl(30 48% 64%);
+          --chat--toggle--color: #ffffff;
+          --chat--toggle--hover-background: hsla(30 48% 64% / 0.9);
+          --chat--toggle--active-background: hsla(30 48% 64% / 0.8);
 
           /* User Message Bubble */
-          --chat--message--user--background: var(--chat--color-primary);
-          --chat--message--user--color: var(--chat--color-white);
+          --chat--message--user--background: hsl(30 48% 64%);
+          --chat--message--user--color: #ffffff;
 
           /* Bot Message Bubble */
-          --chat--message--bot--background: var(--chat--color-secondary);
-          --chat--message--bot--color: var(--chat--color-primary);
+          --chat--message--bot--background: hsl(45 83% 90%);
+          --chat--message--bot--color: hsl(30 48% 64%);
         }
       `;
+
+      // Create a <style> element
+      const styleElement = document.createElement('style');
+      styleElement.id = 'n8n-chat-custom-styles'; // Add an ID to prevent duplicates
+      styleElement.innerHTML = customCss;
+
+      // Append the <style> element to the document's <head>
+      // This ensures styles are applied globally and override defaults.
+      if (!document.getElementById(styleElement.id)) {
+        document.head.appendChild(styleElement);
+      }
       
       createChat({
         webhookUrl: "https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat",
-        style: customStyles,
+        // The style property is removed from here as we are injecting it directly
       });
     }
   }, []);
