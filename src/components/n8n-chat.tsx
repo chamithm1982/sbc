@@ -19,7 +19,7 @@ const N8nChat = () => {
           /* Toggle Button */
           --chat--toggle--background: hsl(30 48% 64%);
           --chat--toggle--color: #ffffff;
-          --chat--toggle--hover-background: hsla(30 48% 64% / 0.9);
+          --chat--toggle--hover-background: hsl(30 48% 64%); /* Set hover to same as default */
           --chat--toggle--active-background: hsla(30 48% 64% / 0.8);
 
           /* User Message Bubble */
@@ -29,11 +29,6 @@ const N8nChat = () => {
           /* Bot Message Bubble */
           --chat--message--bot--background: hsl(45 83% 90%);
           --chat--message--bot--color: hsl(30 48% 64%);
-        }
-
-        /* Forcefully override the hover color if variables fail */
-        button[data-testid="chat-toggle"]:hover {
-          background-color: hsla(30 48% 64% / 0.9) !important;
         }
       `;
 
