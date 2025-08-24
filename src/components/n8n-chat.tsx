@@ -19,8 +19,6 @@ const N8nChat = () => {
           /* Toggle Button */
           --chat--toggle--background: hsl(30 48% 64%) !important;
           --chat--toggle--color: #ffffff !important;
-          --chat--toggle--hover-background: hsl(30 48% 64%) !important; /* Set hover to same as default */
-          --chat--toggle--active-background: hsla(30 48% 64% / 0.8) !important;
 
           /* User Message Bubble */
           --chat--message--user--background: hsl(30 48% 64%);
@@ -48,6 +46,37 @@ const N8nChat = () => {
           storage: 'disabled',
         },
       });
+
+      // --- NEW JAVASCRIPT-BASED SOLUTION ---
+      // This is a more robust way to control the style when CSS fails.
+      const interval = setInterval(() => {
+        // The chat widget is inside a shadow DOM, so we need to query for it specifically.
+        const chatHost = document.querySelector('n8n-chat');
+        if (chatHost && chatHost.shadowRoot) {
+          const toggleButton = chatHost.shadowRoot.querySelector('button[part="toggle"]');
+          
+          if (toggleButton) {
+            // We found the button, so we can stop checking.
+            clearInterval(interval);
+            
+            const baseColor = 'hsl(30 48% 64%)';
+            
+            // Set the initial style to be sure.
+            (toggleButton as HTMLElement).style.backgroundColor = baseColor;
+
+            // Add event listeners to force the color to stay the same on hover.
+            toggleButton.addEventListener('mouseenter', () => {
+              (toggleButton as HTMLElement).style.backgroundColor = baseColor;
+            });
+            toggleButton.addEventListener('mouseleave', () => {
+              (toggleButton as HTMLElement).style.backgroundColor = baseColor;
+            });
+          }
+        }
+      }, 100); // Check every 100ms until the button is found.
+
+      // Cleanup the interval if the component unmounts.
+      return () => clearInterval(interval);
     }
   }, []);
 
