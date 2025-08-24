@@ -118,6 +118,9 @@ export async function sendChatMessage(
   
   const userMessage = validatedFields.data.message;
   const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
+  
+  console.log(`Sending message to webhook: ${n8nWebhookUrl}`);
+  console.log(`Message: ${userMessage}`);
 
   try {
     const response = await fetch(n8nWebhookUrl, {
@@ -132,24 +135,34 @@ export async function sendChatMessage(
         // e.g., userId, session, etc.
       }),
     });
+    
+    const responseBody = await response.text();
+    console.log('Webhook Response Status:', response.status);
+    console.log('Webhook Response Body:', responseBody);
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('N8N Webhook Error:', errorText);
       return {
         message: '',
-        error: 'Sorry, I could not get a response from the assistant.',
+        error: `Sorry, I could not get a response from the assistant. Status: ${response.status}`,
       };
     }
 
-    const responseData = await response.json();
-    
-    // N8N chat webhook typically returns a `text` field in the JSON response
-    const botResponse = responseData.text || 'Sorry, I received an empty response.';
+    try {
+        const responseData = JSON.parse(responseBody);
+        // N8N chat webhook typically returns a `text` field in the JSON response
+        const botResponse = responseData.text || 'Sorry, I received an empty response.';
 
-    return {
-      message: botResponse,
-    };
+        return {
+          message: botResponse,
+        };
+    } catch (parseError) {
+        console.error('Error parsing JSON response from webhook:', parseError);
+        return {
+            message: '',
+            error: 'Sorry, I received an invalid response from the assistant.',
+        };
+    }
+
   } catch (error) {
     console.error('Error sending chat message:', error);
     return {
