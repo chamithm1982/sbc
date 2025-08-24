@@ -21,10 +21,6 @@ const ClientN8nChat = () => {
           --chat--header--background: hsl(30 48% 64%);
           --chat--header--color: #ffffff;
           
-          /* Toggle Button Defaults (will be enforced by JS) */
-          --chat--toggle--background: hsl(30 48% 64%);
-          --chat--toggle--color: #ffffff;
-
           /* User Message Bubble */
           --chat--message--user--background: hsl(30 48% 64%);
           --chat--message--user--color: #ffffff;
@@ -53,7 +49,7 @@ const ClientN8nChat = () => {
       });
 
       // --- JAVASCRIPT-BASED SOLUTION FOR HOVER ---
-      // This is a more robust way to control the style when CSS fails.
+      // This is the most robust way to control the style when CSS fails.
       const interval = setInterval(() => {
         const chatHost = document.querySelector('n8n-chat');
         if (chatHost && chatHost.shadowRoot) {
@@ -64,11 +60,15 @@ const ClientN8nChat = () => {
             
             const baseColor = 'hsl(30 48% 64%)';
             
+            // Set initial color
             (toggleButton as HTMLElement).style.backgroundColor = baseColor;
 
+            // Force color on mouse enter
             toggleButton.addEventListener('mouseenter', () => {
               (toggleButton as HTMLElement).style.backgroundColor = baseColor;
             });
+
+            // Force color on mouse leave
             toggleButton.addEventListener('mouseleave', () => {
               (toggleButton as HTMLElement).style.backgroundColor = baseColor;
             });
@@ -76,6 +76,7 @@ const ClientN8nChat = () => {
         }
       }, 100);
 
+      // Clean up the interval when the component unmounts
       return () => clearInterval(interval);
     }
   }, []);
