@@ -7,7 +7,6 @@ import { useTheme } from '@/components/theme-provider';
 // This should be your production webhook URL.
 const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
 const N8N_SCRIPT_URL = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-const N8N_STYLE_URL = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css';
 
 // Define the shape of the N8N chat module for TypeScript
 declare global {
@@ -23,8 +22,6 @@ const N8NChatbot = () => {
 
   useEffect(() => {
     let isMounted = true;
-    let scriptElement: HTMLScriptElement | null = null;
-    let styleLinkElement: HTMLLinkElement | null = null;
 
     const initializeChat = () => {
       // Check if the createChat function is available on the window object
@@ -53,50 +50,24 @@ const N8NChatbot = () => {
           showCloseButton: true,
         });
       } else if (isMounted) {
-        // This might run if the script is still loading, so we can add a small delay and retry
+        // If the script is still loading, retry after a short delay
         setTimeout(initializeChat, 100);
       }
     };
 
-    // Load stylesheet
-    if (!document.querySelector(`link[href="${N8N_STYLE_URL}"]`)) {
-      styleLinkElement = document.createElement('link');
-      styleLinkElement.href = N8N_STYLE_URL;
-      styleLinkElement.rel = 'stylesheet';
-      document.head.appendChild(styleLinkElement);
-    }
+    // Load script tag
+    const script = document.createElement('script');
+    script.src = N8N_SCRIPT_URL;
+    script.type = 'module';
+    script.async = true;
+    script.onload = initializeChat;
+    document.body.appendChild(script);
 
-    // Load script
-    if (!document.querySelector(`script[src="${N8N_SCRIPT_URL}"]`)) {
-      scriptElement = document.createElement('script');
-      scriptElement.src = N8N_SCRIPT_URL;
-      scriptElement.type = 'module';
-      scriptElement.async = true;
-      scriptElement.onload = initializeChat; // Initialize after script loads
-      scriptElement.onerror = () => {
-        if (isMounted) {
-          console.error("Failed to load N8N chat script.");
-        }
-      };
-      document.body.appendChild(scriptElement);
-    } else {
-      // If script is already on the page, just initialize
-      initializeChat();
-    }
-
-    // Cleanup function
     return () => {
       isMounted = false;
-      // It's generally better not to remove the script/style on unmount
-      // as it can cause issues if the component re-mounts quickly.
-      // The widget itself can be removed if necessary.
-      const widget = document.querySelector('.n8n-chat-widget');
-      if (widget) {
-         // The N8N widget might not have a simple remove function,
-         // but if it does, it would be called here.
-         // For now, we'll rely on the check at the top of initializeChat
-         // to prevent re-creation.
-      }
+      // It's better not to remove the script itself on unmount
+      // as it can interfere with quick re-mounts.
+      // The `initializeChat` function already prevents re-creation.
     };
   }, [theme]); // Re-run if the theme changes to re-apply styles
 

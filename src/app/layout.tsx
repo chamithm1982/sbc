@@ -5,11 +5,14 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import N8NChatbot from '@/components/n8n-chatbot';
 import './globals.css';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Salon B Curls - Hair & Beauty Salon in Dandenong, Victoria',
   description: 'Discover your radiance at Salon B Curls. We offer premium hair styling and rejuvenating skin treatments in Dandenong, Victoria. Book your transformation today!',
 };
+
+const N8N_STYLE_URL = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css';
 
 export default function RootLayout({
   children,
@@ -23,6 +26,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
+        <link href={N8N_STYLE_URL} rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
