@@ -67,7 +67,7 @@ const Chatbot = () => {
         botMessage = { text: data.output || "Sorry, I couldn't understand that.", sender: 'bot' };
       } else {
         // If the response is not OK, display the specific error from the API.
-        const errorMessageText = data.error || data.message || 'Sorry, an unknown error occurred.';
+        const errorMessageText = data.error || data.details || 'Sorry, an unknown error occurred.';
         botMessage = { text: `Error: ${errorMessageText}`, sender: 'bot' };
       }
       setMessages(prevMessages => [...prevMessages, botMessage]);
