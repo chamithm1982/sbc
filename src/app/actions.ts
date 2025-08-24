@@ -2,6 +2,7 @@
 'use server';
 
 import { z } from 'zod';
+import { randomUUID } from 'crypto';
 
 // Zod schema for validating form data.
 // It now correctly handles the date as a string from FormData and transforms it into a Date object.
@@ -119,8 +120,14 @@ export async function sendChatMessage(
   const userMessage = validatedFields.data.message;
   const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
   
-  console.log(`Sending message to webhook: ${n8nWebhookUrl}`);
-  console.log(`Message: ${userMessage}`);
+  const payload = {
+    sessionId: randomUUID(), // Generate a unique ID for the session
+    action: 'sendMessage',
+    chatInput: userMessage,
+  };
+
+  console.log(`Sending payload to webhook: ${n8nWebhookUrl}`);
+  console.log(`Payload: ${JSON.stringify(payload)}`);
 
   try {
     const response = await fetch(n8nWebhookUrl, {
@@ -128,13 +135,7 @@ export async function sendChatMessage(
       headers: {
         'Content-Type': 'application/json',
       },
-      // N8N expects a specific structure for the chat webhook
-      // Changed from 'text' to 'message' as a common alternative.
-      body: JSON.stringify({
-        message: userMessage,
-        // We can add more context here if needed in the future
-        // e.g., userId, session, etc.
-      }),
+      body: JSON.stringify(payload),
     });
     
     const responseBody = await response.text();
@@ -158,6 +159,12 @@ export async function sendChatMessage(
         };
     } catch (parseError) {
         console.error('Error parsing JSON response from webhook:', parseError);
+        // If the response is not JSON, but the request was successful, maybe the body itself is the message.
+        if (responseBody.trim()) {
+          return {
+            message: responseBody,
+          };
+        }
         return {
             message: '',
             error: 'Sorry, I received an invalid response from the assistant.',
