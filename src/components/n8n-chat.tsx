@@ -30,13 +30,6 @@ const N8nChat = () => {
           --chat--message--bot--background: hsl(45 83% 90%);
           --chat--message--bot--color: hsl(30 48% 64%);
         }
-
-        /* Force override for hover state on the button and any internal SVG icon */
-        [data-n8n-chat-widget] [data-testid="chat-toggle"]:hover,
-        [data-n8n-chat-widget] [data-testid="chat-toggle"]:hover svg {
-          background: hsl(30 48% 64%) !important;
-          fill: #ffffff !important;
-        }
       `;
 
       // Create a <style> element
