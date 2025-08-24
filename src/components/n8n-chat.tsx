@@ -3,6 +3,15 @@
 
 import { useEffect } from 'react';
 
+// Extend the Window interface to include n8nChat
+declare global {
+  interface Window {
+    n8nChat?: {
+      createChat: (options: { webhookUrl: string }) => void;
+    };
+  }
+}
+
 const N8nChat = () => {
   useEffect(() => {
     // Check if the script is already added to prevent duplicates
@@ -13,13 +22,16 @@ const N8nChat = () => {
     const script = document.createElement('script');
     script.id = 'n8n-chat-script';
     script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-    script.async = true;
     script.type = 'module';
-
-    // A more reliable way to initialize is to use the script's own mechanism.
-    // We can add data-attributes that the script will automatically read on load.
-    script.dataset.webhookUrl = 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802';
-    script.dataset.chatInputKey = 'chatInput';
+    
+    // This is the crucial part: We wait for the script to load before trying to use it.
+    script.onload = () => {
+      if (window.n8nChat) {
+        window.n8nChat.createChat({
+          webhookUrl: 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802',
+        });
+      }
+    };
 
     document.body.appendChild(script);
 
