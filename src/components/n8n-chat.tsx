@@ -1,121 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@keyframes text_shimmer_animation {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
+'use client';
 
-@layer base {
-  :root {
-    --background: 53 83% 94%; /* #FEFAE0 */
-    --foreground: 30 20% 25%; /* Dark Brown for text */
+import { useEffect } from 'react';
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 30 20% 25%;
+const N8nChat = () => {
+  useEffect(() => {
+    if (document.getElementById('n8n-chat-script')) {
+      return;
+    }
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 30 20% 25%;
+    const script = document.createElement('script');
+    script.id = 'n8n-chat-script';
+    script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    script.async = true;
 
-    --primary: 30 48% 64%; /* #D4A373 */
-    --primary-foreground: 0 0% 100%; /* White for contrast */
-
-    --secondary: 71 41% 85%; /* #E9EDC9 */
-    --secondary-foreground: 30 20% 25%;
-
-    --muted: 80 27% 82%; /* Adjusted #CCD5AE */
-    --muted-foreground: 30 15% 40%;
-
-    --accent: 45 83% 90%; /* #FAEDCD */
-    --accent-foreground: 30 48% 64%; /* #D4A373 */
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 80 27% 77%; /* #CCD5AE */
-    --input: 80 27% 77%;
-    --ring: 30 48% 64%; /* Primary color for rings */
-
-    --radius: 0.75rem; /* rounded-xl by default, can use rounded-lg (0.5rem) or rounded-md (calc(var(--radius) - 2px)) */
+    // Use data-attributes for reliable, declarative initialization
+    script.dataset.webhookUrl = 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802';
+    script.dataset.chatInputKey = 'chatInput';
     
-    --chart-1: 30 48% 64%;
-    --chart-2: 45 83% 80%; /* Lighter accent */
-    --chart-3: 71 41% 75%; /* Lighter secondary */
-    --chart-4: 80 27% 67%; /* Lighter border */
-    --chart-5: 30 30% 50%; /* Darker primary */
+    // Customization via data-attributes
+    script.dataset.i18n = JSON.stringify({
+      en: {
+        title: 'Welcome to Salon B Curls!',
+        subtitle: "How can we help you today?",
+        inputPlaceholder: 'Type your message...',
+      },
+    });
 
-    /* n8n Chat Widget Customization */
-    --chat--color-primary: hsl(var(--primary));
-    --chat--color-primary-shade-50: hsl(var(--primary) / 0.9);
-    --chat--color-primary-shade-100: hsl(var(--primary) / 0.8);
-    --chat--color-secondary: hsl(var(--accent));
-    
-    --chat--window--width: 400px;
-    --chat--window--height: 600px;
-    --chat--border-radius: var(--radius);
+    document.body.appendChild(script);
 
-    --chat--header--background: hsl(var(--primary));
-    --chat--header--color: hsl(var(--primary-foreground));
+    return () => {
+      const existingScript = document.getElementById('n8n-chat-script');
+      if (existingScript) {
+        document.body.removeChild(existingScript);
+      }
+    };
+  }, []); // Empty dependency array ensures this runs only once.
 
-    --chat--message--user--background: hsl(var(--primary));
-    --chat--message--user--color: hsl(var(--primary-foreground));
-    --chat--message--bot--background: hsl(var(--accent));
-    --chat--message--bot--color: hsl(var(--accent-foreground));
+  return null; // This component doesn't render anything itself.
+};
 
-    --chat--toggle--background: hsl(var(--primary));
-    --chat--toggle--hover--background: hsl(var(--primary) / 0.9);
-    --chat--toggle--active--background: hsl(var(--primary) / 0.8);
-    --chat--toggle--color: hsl(var(--primary-foreground));
-  }
-
-  .dark {
-    --background: 220 10% 10%; /* Deep, muted dark blue/grey */
-    --foreground: 0 0% 95%; /* Light grey/white for text */
-
-    --card: 220 10% 13%; /* Slightly lighter dark for cards */
-    --card-foreground: 0 0% 95%;
-
-    --popover: 220 10% 13%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 30 55% 70%; /* #D4A373 adjusted for dark mode */
-    --primary-foreground: 220 10% 10%; /* Dark background for contrast */
-
-    --secondary: 220 10% 20%; /* Darker secondary */
-    --secondary-foreground: 0 0% 95%;
-
-    --muted: 220 10% 18%; /* Darker muted */
-    --muted-foreground: 0 0% 70%;
-
-    --accent: 45 60% 80%; /* #FAEDCD adjusted for dark mode */
-    --accent-foreground: 220 10% 10%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 220 10% 25%; /* Darker border */
-    --input: 220 10% 25%;
-    --ring: 30 55% 70%; /* Primary color (dark mode adjusted) for rings */
-    
-    --chart-1: 30 55% 70%;
-    --chart-2: 45 60% 70%;
-    --chart-3: 220 10% 40%;
-    --chart-4: 220 10% 50%;
-    --chart-5: 30 40% 60%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-}
+export default N8nChat;

@@ -1,12 +1,11 @@
 
 'use client';
 
-import { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-// We are removing the N8nChat component and handling it here directly.
+import N8nChat from '@/components/n8n-chat'; // Import the new, reliable component
 import './globals.css';
 
 export default function RootLayout({
@@ -14,46 +13,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    // Check if the script has already been added to avoid duplicates.
-    if (document.getElementById('n8n-chat-script')) {
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.id = 'n8n-chat-script';
-    script.type = 'module';
-    script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-    
-    // This is the crucial part: we wait for the script to load, THEN initialize.
-    script.onload = () => {
-      if (window.n8nChat) {
-        window.n8nChat.createChat({
-          webhookUrl: 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802',
-          // We pass customization options here directly via JavaScript
-          // This is a more reliable way to override the default styles.
-          i18n: {
-            en: {
-              title: 'Welcome to Salon B Curls!',
-              subtitle: "How can we help you today?",
-              inputPlaceholder: 'Type your message...',
-            },
-          },
-        });
-      }
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up the script when the component unmounts
-      const existingScript = document.getElementById('n8n-chat-script');
-      if (existingScript) {
-        document.body.removeChild(existingScript);
-      }
-    };
-  }, []); // Empty dependency array ensures this runs only once on mount.
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -73,18 +32,9 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
-          {/* The chat is now initialized via the useEffect hook above */}
+          <N8nChat />
         </ThemeProvider>
       </body>
     </html>
   );
-}
-
-// We need to declare n8nChat on the window object for TypeScript
-declare global {
-  interface Window {
-    n8nChat: {
-      createChat: (options: any) => void;
-    };
-  }
 }
