@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
@@ -57,17 +58,21 @@ const Chatbot = () => {
         })
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        // Use the error message from the API route if available
+        const errorMessageText = data.message || 'Network response was not ok';
+        throw new Error(errorMessageText);
       }
 
-      const data = await response.json();
       const botMessage: Message = { text: data.output || "Sorry, I couldn't understand that.", sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, botMessage]);
 
     } catch (error) {
-      console.error("Error sending message:", error);
-      const errorMessage: Message = { text: "Sorry, something went wrong. Please try again.", sender: 'bot' };
+      const errorMessageText = error instanceof Error ? error.message : "An unknown error occurred.";
+      console.error("Error sending message:", errorMessageText);
+      const errorMessage: Message = { text: `Sorry, something went wrong: ${errorMessageText}`, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
         setIsLoading(false);
