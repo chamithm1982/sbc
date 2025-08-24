@@ -17,10 +17,10 @@ const N8nChat = () => {
           --chat--header--color: #ffffff;
           
           /* Toggle Button */
-          --chat--toggle--background: hsl(30 48% 64%);
-          --chat--toggle--color: #ffffff;
-          --chat--toggle--hover-background: hsl(30 48% 64%); /* Set hover to same as default */
-          --chat--toggle--active-background: hsla(30 48% 64% / 0.8);
+          --chat--toggle--background: hsl(30 48% 64%) !important;
+          --chat--toggle--color: #ffffff !important;
+          --chat--toggle--hover-background: hsl(30 48% 64%) !important; /* Set hover to same as default */
+          --chat--toggle--active-background: hsla(30 48% 64% / 0.8) !important;
 
           /* User Message Bubble */
           --chat--message--user--background: hsl(30 48% 64%);
@@ -29,6 +29,13 @@ const N8nChat = () => {
           /* Bot Message Bubble */
           --chat--message--bot--background: hsl(45 83% 90%);
           --chat--message--bot--color: hsl(30 48% 64%);
+        }
+
+        /* Force override for hover state on the button and any internal SVG icon */
+        [data-n8n-chat-widget] [data-testid="chat-toggle"]:hover,
+        [data-n8n-chat-widget] [data-testid="chat-toggle"]:hover svg {
+          background: hsl(30 48% 64%) !important;
+          fill: #ffffff !important;
         }
       `;
 
