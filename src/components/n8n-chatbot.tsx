@@ -14,38 +14,47 @@ const N8NChatbot = () => {
   const { theme } = useTheme(); // Use the site's theme to potentially adjust styles
 
   useEffect(() => {
-    // Function to initialize the chat widget
-    const initializeChat = () => {
+    let isMounted = true;
+
+    const initializeChat = async () => {
       // Avoid re-initializing if it already exists
       if (document.querySelector('.n8n-chat-widget')) {
         return;
       }
 
-      // Check if the createChat function is available on the window object
-      if ((window as any).n8nChat && typeof (window as any).n8nChat.createChat === 'function') {
-        (window as any).n8nChat.createChat({
-          webhookUrl: N8N_WEBHOOK_URL,
-          // --- Customization Options ---
-          title: "Salon B Curls Assistant",
-          headerBackgroundColor: 'hsl(var(--primary))', // #D4A373
-          headerTextColor: 'hsl(var(--primary-foreground))', // White
-          userMessageBackgroundColor: 'hsl(var(--primary))', // #D4A373
-          userMessageTextColor: 'hsl(var(--primary-foreground))',
-          botMessageBackgroundColor: 'hsl(var(--accent))', // #FAEDCD
-          botMessageTextColor: 'hsl(var(--accent-foreground))', // #D4A373
-          chatBackgroundColor: 'hsl(var(--background))', // #FEFAE0
-          bubbleBackgroundColor: 'hsl(var(--primary))',
-          bubbleTextColor: 'hsl(var(--primary-foreground))',
-          fontFamily: 'Montserrat, sans-serif',
-          // Custom messages
-          welcomeMessage: 'Hello! How can I help you with booking an appointment or answering your questions today?',
-          inputPlaceholder: 'Type your message...',
-          // Other settings
-          showWelcomeMessage: true,
-          showCloseButton: true,
-        });
-      } else {
-        console.error("N8N chat script loaded, but createChat function not found.");
+      try {
+        // Dynamically import the ES module
+        const chatModule = await import(/* @vite-ignore */ N8N_SCRIPT_URL);
+        
+        if (isMounted && chatModule && typeof chatModule.createChat === 'function') {
+          chatModule.createChat({
+            webhookUrl: N8N_WEBHOOK_URL,
+            // --- Customization Options ---
+            title: "Salon B Curls Assistant",
+            headerBackgroundColor: 'hsl(var(--primary))', // #D4A373
+            headerTextColor: 'hsl(var(--primary-foreground))', // White
+            userMessageBackgroundColor: 'hsl(var(--primary))', // #D4A373
+            userMessageTextColor: 'hsl(var(--primary-foreground))',
+            botMessageBackgroundColor: 'hsl(var(--accent))', // #FAEDCD
+            botMessageTextColor: 'hsl(var(--accent-foreground))', // #D4A373
+            chatBackgroundColor: 'hsl(var(--background))', // #FEFAE0
+            bubbleBackgroundColor: 'hsl(var(--primary))',
+            bubbleTextColor: 'hsl(var(--primary-foreground))',
+            fontFamily: 'Montserrat, sans-serif',
+            // Custom messages
+            welcomeMessage: 'Hello! How can I help you with booking an appointment or answering your questions today?',
+            inputPlaceholder: 'Type your message...',
+            // Other settings
+            showWelcomeMessage: true,
+            showCloseButton: true,
+          });
+        } else if (isMounted) {
+            console.error("N8N chat module loaded, but createChat function not found.");
+        }
+      } catch (error) {
+        if (isMounted) {
+            console.error("Failed to load or initialize N8N chat script:", error);
+        }
       }
     };
 
@@ -56,30 +65,18 @@ const N8NChatbot = () => {
       styleLink.rel = 'stylesheet';
       document.head.appendChild(styleLink);
     }
-
-    // Load the script if it doesn't exist
-    if (!document.querySelector(`script[src="${N8N_SCRIPT_URL}"]`)) {
-        const script = document.createElement('script');
-        script.src = N8N_SCRIPT_URL;
-        script.type = 'module';
-        script.async = true;
-        // Initialize chat after the script has loaded
-        script.onload = () => setTimeout(initializeChat, 100); // Small delay for theme vars
-        script.onerror = () => console.error("Failed to load N8N chat script.");
-        document.body.appendChild(script);
-    } else {
-        // If script is already present, just initialize
-        setTimeout(initializeChat, 100);
-    }
     
+    // Use a small timeout to ensure theme variables are available
+    const timer = setTimeout(initializeChat, 100);
+
     // Cleanup function on component unmount
     return () => {
+      isMounted = false;
+      clearTimeout(timer);
       const widget = document.querySelector('.n8n-chat-widget');
       if (widget) {
         widget.remove();
       }
-      // Note: We don't remove the script/style tags as they might be needed by other instances
-      // and removing them can be complex. The widget itself is removed.
     };
   }, [theme]); // Re-run if the theme changes
 
