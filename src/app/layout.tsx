@@ -31,7 +31,7 @@ export default function RootLayout({
         <link href={N8N_STYLE_URL} rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light">
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">{children}</main>
@@ -56,8 +56,7 @@ export default function RootLayout({
                 showCloseButton: true,
               };
 
-              const isDarkMode = document.documentElement.classList.contains('dark') || 
-                                (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !document.documentElement.classList.contains('light'));
+              const isDarkMode = document.documentElement.classList.contains('dark');
               
               if (isDarkMode) {
                   Object.assign(chatConfig, {
