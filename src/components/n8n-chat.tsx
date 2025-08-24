@@ -12,9 +12,11 @@ const N8nChat = () => {
       
       const customCss = `
         :root {
-          /* Header & Toggle Button */
+          /* Header */
           --chat--header--background: hsl(30 48% 64%);
           --chat--header--color: #ffffff;
+          
+          /* Toggle Button */
           --chat--toggle--background: hsl(30 48% 64%);
           --chat--toggle--color: #ffffff;
           --chat--toggle--hover-background: hsla(30 48% 64% / 0.9);
@@ -28,6 +30,11 @@ const N8nChat = () => {
           --chat--message--bot--background: hsl(45 83% 90%);
           --chat--message--bot--color: hsl(30 48% 64%);
         }
+
+        /* Forcefully override the hover color if variables fail */
+        button[data-testid="chat-toggle"]:hover {
+          background-color: hsla(30 48% 64% / 0.9) !important;
+        }
       `;
 
       // Create a <style> element
@@ -36,14 +43,15 @@ const N8nChat = () => {
       styleElement.innerHTML = customCss;
 
       // Append the <style> element to the document's <head>
-      // This ensures styles are applied globally and override defaults.
       if (!document.getElementById(styleElement.id)) {
         document.head.appendChild(styleElement);
       }
       
       createChat({
         webhookUrl: "https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat",
-        // The style property is removed from here as we are injecting it directly
+        chatSession: {
+          storage: 'disabled',
+        },
       });
     }
   }, []);
