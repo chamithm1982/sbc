@@ -149,25 +149,31 @@ export async function sendChatMessage(
       };
     }
 
+    // Handle cases where the webhook responds with a 2xx status but an empty body.
+    if (!responseBody.trim()) {
+        console.log('Webhook returned a successful but empty response.');
+        return {
+            message: "Your message was sent, but the assistant didn't reply. Please try asking in a different way."
+        };
+    }
+
     try {
         const responseData = JSON.parse(responseBody);
         // N8N chat webhook typically returns a `text` field in the JSON response
-        const botResponse = responseData.text || 'Sorry, I received an empty response.';
+        const botResponse = responseData.text;
 
-        return {
-          message: botResponse,
-        };
+        if (botResponse) {
+          return { message: botResponse };
+        } else {
+          console.warn('Webhook response JSON is missing the "text" field.');
+          return { message: "I've received your message, but I don't have a specific response right now." };
+        }
+        
     } catch (parseError) {
         console.error('Error parsing JSON response from webhook:', parseError);
-        // If the response is not JSON, but the request was successful, maybe the body itself is the message.
-        if (responseBody.trim()) {
-          return {
-            message: responseBody,
-          };
-        }
+        // If the response is not JSON, but the request was successful, treat the body itself as the message.
         return {
-            message: '',
-            error: 'Sorry, I received an invalid response from the assistant.',
+            message: responseBody,
         };
     }
 
