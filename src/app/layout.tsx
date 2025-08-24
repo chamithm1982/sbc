@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import N8nChat from '@/components/n8n-chat'; // Import the new, reliable component
+import N8nChat from '@/components/n8n-chat';
 import './globals.css';
 
 export default function RootLayout({
