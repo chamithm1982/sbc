@@ -129,8 +129,9 @@ export async function sendChatMessage(
         'Content-Type': 'application/json',
       },
       // N8N expects a specific structure for the chat webhook
+      // Changed from 'text' to 'message' as a common alternative.
       body: JSON.stringify({
-        text: userMessage,
+        message: userMessage,
         // We can add more context here if needed in the future
         // e.g., userId, session, etc.
       }),
