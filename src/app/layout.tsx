@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import './globals.css';
-import Script from "next/script";
+import N8nChat from "@/components/n8n-chat";
 
 export default function RootLayout({
   children,
@@ -22,7 +22,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="light">
@@ -32,23 +31,8 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
+          <N8nChat />
         </ThemeProvider>
-        
-        <Script
-          id="n8n-chat-config"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.n8nChat = {
-                webhookUrl: "https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802",
-              };
-            `,
-          }}
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.umd.js"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   );
