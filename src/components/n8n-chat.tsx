@@ -10,7 +10,7 @@ const N8nChat = () => {
     // This ensures the createChat function is called only on the client side.
     if (typeof window !== 'undefined') {
       createChat({
-        webhookUrl: "https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802",
+        webhookUrl: "https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat",
       });
     }
   }, []);
