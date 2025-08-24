@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     // IMPORTANT: Replace this with your actual N8N Chatbot Webhook URL.
-    const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/03c30f9f-dd73-47e7-9e6e-3d62cd820960';
+    const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/03c30f9f-dd73-47e7-9e6e-3d62cd820960';
 
     // Forward the data to the webhook.
     const webhookResponse = await fetch(n8nWebhookUrl, {
