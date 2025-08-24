@@ -55,13 +55,19 @@ const N8NChatbot = () => {
       }
     };
 
-    // Load script tag
-    const script = document.createElement('script');
-    script.src = N8N_SCRIPT_URL;
-    script.type = 'module';
-    script.async = true;
-    script.onload = initializeChat;
-    document.body.appendChild(script);
+    // Check if the script is already on the page
+    if (!document.querySelector(`script[src="${N8N_SCRIPT_URL}"]`)) {
+      // Load script tag
+      const script = document.createElement('script');
+      script.src = N8N_SCRIPT_URL;
+      script.type = 'module';
+      script.async = true;
+      script.onload = initializeChat;
+      document.body.appendChild(script);
+    } else {
+      // If script is already present, just initialize
+      initializeChat();
+    }
 
     return () => {
       isMounted = false;

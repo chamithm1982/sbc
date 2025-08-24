@@ -5,7 +5,6 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import N8NChatbot from '@/components/n8n-chatbot';
 import './globals.css';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Salon B Curls - Hair & Beauty Salon in Dandenong, Victoria',
