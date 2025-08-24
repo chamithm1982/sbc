@@ -54,22 +54,25 @@ const Chatbot = () => {
         body: JSON.stringify({
           chatId: chatId,
           message: inputValue,
-          route: 'general' // As seen in your example
+          route: 'general'
         })
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        // Use the error message from the API route if available
-        const errorMessageText = data.message || 'Network response was not ok';
-        throw new Error(errorMessageText);
+        // If the response is not OK, display the error from the API as a bot message.
+        const errorMessageText = data.message || 'Sorry, an unknown error occurred.';
+        const errorMessage: Message = { text: `Error: ${errorMessageText}`, sender: 'bot' };
+        setMessages(prevMessages => [...prevMessages, errorMessage]);
+      } else {
+        // If the response is OK, display the bot's message.
+        const botMessage: Message = { text: data.output || "Sorry, I couldn't understand that.", sender: 'bot' };
+        setMessages(prevMessages => [...prevMessages, botMessage]);
       }
 
-      const botMessage: Message = { text: data.output || "Sorry, I couldn't understand that.", sender: 'bot' };
-      setMessages(prevMessages => [...prevMessages, botMessage]);
-
     } catch (error) {
+      // Catch network errors or other unexpected issues.
       const errorMessageText = error instanceof Error ? error.message : "An unknown error occurred.";
       console.error("Error sending message:", errorMessageText);
       const errorMessage: Message = { text: `Sorry, something went wrong: ${errorMessageText}`, sender: 'bot' };
