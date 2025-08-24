@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import './globals.css';
-import N8nChat from "@/components/n8n-chat";
+import ClientN8nChat from "@/components/client-n8n-chat";
 
 export default function RootLayout({
   children,
@@ -31,7 +31,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
-          <N8nChat />
+          <ClientN8nChat />
         </ThemeProvider>
       </body>
     </html>
