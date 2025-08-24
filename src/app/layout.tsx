@@ -42,47 +42,57 @@ export default function RootLayout({
         <Script id="n8n-chat-script" strategy="lazyOnload">
           {`
             (function() {
-              if (window.n8nChat) return;
+              if (document.querySelector('.n8n-chat-widget')) {
+                return;
+              }
+
+              const chatConfig = {
+                webhookUrl: "${N8N_WEBHOOK_URL}",
+                title: "Salon B Curls Assistant",
+                fontFamily: 'Montserrat, sans-serif',
+                welcomeMessage: 'Hello! How can I help you with booking an appointment or answering your questions today?',
+                inputPlaceholder: 'Type your message...',
+                showWelcomeMessage: true,
+                showCloseButton: true,
+              };
+
+              const isDarkMode = document.documentElement.classList.contains('dark') || 
+                                (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !document.documentElement.classList.contains('light'));
+              
+              if (isDarkMode) {
+                  Object.assign(chatConfig, {
+                    headerBackgroundColor: 'hsl(30 55% 70%)',
+                    headerTextColor: 'hsl(220 10% 10%)',
+                    userMessageBackgroundColor: 'hsl(30 55% 70%)',
+                    userMessageTextColor: 'hsl(220 10% 10%)',
+                    botMessageBackgroundColor: 'hsl(45 60% 80%)',
+                    botMessageTextColor: 'hsl(220 10% 10%)',
+                    chatBackgroundColor: 'hsl(220 10% 10%)',
+                    bubbleBackgroundColor: 'hsl(30 55% 70%)',
+                    bubbleTextColor: 'hsl(220 10% 10%)',
+                  });
+              } else {
+                  Object.assign(chatConfig, {
+                    headerBackgroundColor: 'hsl(30 48% 64%)',
+                    headerTextColor: 'hsl(0 0% 100%)',
+                    userMessageBackgroundColor: 'hsl(30 48% 64%)',
+                    userMessageTextColor: 'hsl(0 0% 100%)',
+                    botMessageBackgroundColor: 'hsl(45 83% 90%)',
+                    botMessageTextColor: 'hsl(30 48% 64%)',
+                    chatBackgroundColor: 'hsl(53 83% 94%)',
+                    bubbleBackgroundColor: 'hsl(30 48% 64%)',
+                    bubbleTextColor: 'hsl(0 0% 100%)',
+                  });
+              }
+              
               const script = document.createElement('script');
               script.type = 'module';
               script.src = "${N8N_SCRIPT_URL}";
               script.onload = () => {
-                const chatConfig = {
-                  webhookUrl: "${N8N_WEBHOOK_URL}",
-                  title: "Salon B Curls Assistant",
-                  headerBackgroundColor: 'hsl(30 48% 64%)',
-                  headerTextColor: 'hsl(0 0% 100%)',
-                  userMessageBackgroundColor: 'hsl(30 48% 64%)',
-                  userMessageTextColor: 'hsl(0 0% 100%)',
-                  botMessageBackgroundColor: 'hsl(45 83% 90%)',
-                  botMessageTextColor: 'hsl(30 48% 64%)',
-                  chatBackgroundColor: 'hsl(53 83% 94%)',
-                  bubbleBackgroundColor: 'hsl(30 48% 64%)',
-                  bubbleTextColor: 'hsl(0 0% 100%)',
-                  fontFamily: 'Montserrat, sans-serif',
-                  welcomeMessage: 'Hello! How can I help you with booking an appointment or answering your questions today?',
-                  inputPlaceholder: 'Type your message...',
-                  showWelcomeMessage: true,
-                  showCloseButton: true,
-                };
-                if (document.documentElement.classList.contains('dark')) {
-                    chatConfig.headerBackgroundColor = 'hsl(30 55% 70%)';
-                    chatConfig.headerTextColor = 'hsl(220 10% 10%)';
-                    chatConfig.userMessageBackgroundColor = 'hsl(30 55% 70%)';
-                    chatConfig.userMessageTextColor = 'hsl(220 10% 10%)';
-                    chatConfig.botMessageBackgroundColor = 'hsl(45 60% 80%)';
-                    chatConfig.botMessageTextColor = 'hsl(220 10% 10%)';
-                    chatConfig.chatBackgroundColor = 'hsl(220 10% 10%)';
-                    chatConfig.bubbleBackgroundColor = 'hsl(30 55% 70%)';
-                    chatConfig.bubbleTextColor = 'hsl(220 10% 10%)';
-                }
-                
-                window.n8nChat = { createChat: () => {} }; // Mock to prevent errors on fast re-renders
-                
-                import('${N8N_SCRIPT_URL}').then((module) => {
-                  if (document.querySelector('.n8n-chat-widget')) return;
-                  module.createChat(chatConfig);
-                });
+                  import('${N8N_SCRIPT_URL}').then((module) => {
+                    if (document.querySelector('.n8n-chat-widget')) return;
+                    module.createChat(chatConfig);
+                  });
               };
               document.body.appendChild(script);
             })();
