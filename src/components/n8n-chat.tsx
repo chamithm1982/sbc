@@ -16,9 +16,9 @@ const N8nChat = () => {
           --chat--header--background: hsl(30 48% 64%);
           --chat--header--color: #ffffff;
           
-          /* Toggle Button */
-          --chat--toggle--background: hsl(30 48% 64%) !important;
-          --chat--toggle--color: #ffffff !important;
+          /* Toggle Button Defaults (will be enforced by JS) */
+          --chat--toggle--background: hsl(30 48% 64%);
+          --chat--toggle--color: #ffffff;
 
           /* User Message Bubble */
           --chat--message--user--background: hsl(30 48% 64%);
@@ -30,7 +30,7 @@ const N8nChat = () => {
         }
       `;
 
-      // Create a <style> element
+      // Create a <style> element for the parts that work (chat window)
       const styleElement = document.createElement('style');
       styleElement.id = 'n8n-chat-custom-styles'; // Add an ID to prevent duplicates
       styleElement.innerHTML = customCss;
