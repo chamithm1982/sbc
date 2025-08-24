@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-40 transition-all duration-300",
+      "sticky top-0 z-50 transition-all duration-300",
       "bg-background/95 backdrop-blur-sm shadow-xl rounded-full",
       "mt-3 sm:mt-4 md:mt-5 lg:mt-6",
       "mx-auto w-11/12 max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl" // Adjusted max-width
