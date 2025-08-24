@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import Chatbot from '@/components/chatbot';
+import N8NChatbot from '@/components/n8n-chatbot';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function RootLayout({
             <main className="flex-grow">{children}</main>
             <Footer />
           </div>
-          <Chatbot />
+          <N8NChatbot />
           <Toaster />
         </ThemeProvider>
       </body>
