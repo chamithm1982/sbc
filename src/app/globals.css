@@ -50,17 +50,27 @@
     --chart-5: 30 30% 50%; /* Darker primary */
 
     /* n8n Chat Widget Customization */
+    --chat--color-primary: hsl(var(--primary));
+    --chat--color-primary-shade-50: hsl(var(--primary) / 0.9);
+    --chat--color-primary-shade-100: hsl(var(--primary) / 0.8);
+    --chat--color-secondary: hsl(var(--accent));
+    
+    --chat--window--width: 400px;
+    --chat--window--height: 600px;
+    --chat--border-radius: var(--radius);
+
+    --chat--header--background: hsl(var(--primary));
+    --chat--header--color: hsl(var(--primary-foreground));
+
+    --chat--message--user--background: hsl(var(--primary));
+    --chat--message--user--color: hsl(var(--primary-foreground));
+    --chat--message--bot--background: hsl(var(--accent));
+    --chat--message--bot--color: hsl(var(--accent-foreground));
+
     --chat--toggle--background: hsl(var(--primary));
     --chat--toggle--hover--background: hsl(var(--primary) / 0.9);
     --chat--toggle--active--background: hsl(var(--primary) / 0.8);
     --chat--toggle--color: hsl(var(--primary-foreground));
-    --chat--header--background: hsl(var(--primary));
-    --chat--header--color: hsl(var(--primary-foreground));
-    --chat--message--user--background: hsl(var(--primary));
-    --chat--message--user--color: hsl(var(--primary-foreground));
-    --chat--window--width: 400px;
-    --chat--window--height: 600px;
-    --chat--border-radius: var(--radius);
   }
 
   .dark {
