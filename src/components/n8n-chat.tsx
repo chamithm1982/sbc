@@ -1,11 +1,12 @@
+
 "use client";
 
 import { useEffect } from 'react';
 
 // This component uses the n8n chat embed script directly from a CDN 
-// to avoid the previous npm installation issues.
+// to avoid previous npm installation issues.
 
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
+const N8N_WEBHOOK_URL = 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
 
 declare global {
   interface Window {
