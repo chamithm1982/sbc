@@ -89,3 +89,72 @@ export async function submitBooking(
     };
   }
 }
+
+// --- New Server Action for Custom Chat Widget ---
+
+const ChatSchema = z.object({
+  message: z.string().min(1),
+});
+
+export type ChatState = {
+  message: string;
+  error?: string;
+};
+
+export async function sendChatMessage(
+  prevState: ChatState,
+  formData: FormData
+): Promise<ChatState> {
+  const validatedFields = ChatSchema.safeParse({
+    message: formData.get('message'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      message: '',
+      error: 'Message is required.',
+    };
+  }
+  
+  const userMessage = validatedFields.data.message;
+  const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
+
+  try {
+    const response = await fetch(n8nWebhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // N8N expects a specific structure for the chat webhook
+      body: JSON.stringify({
+        text: userMessage,
+        // We can add more context here if needed in the future
+        // e.g., userId, session, etc.
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('N8N Webhook Error:', errorText);
+      return {
+        message: '',
+        error: 'Sorry, I could not get a response from the assistant.',
+      };
+    }
+
+    const responseData = await response.json();
+    
+    // N8N chat webhook typically returns a `text` field in the JSON response
+    const botResponse = responseData.text || 'Sorry, I received an empty response.';
+
+    return {
+      message: botResponse,
+    };
+  } catch (error) {
+    console.error('Error sending chat message:', error);
+    return {
+      message: '',
+      error: 'An unexpected error occurred. Please try again.',
+    };
+  }
+}
