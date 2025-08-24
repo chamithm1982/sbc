@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import N8nChat from '@/components/n8n-chat'; // Import the new component
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
+          <N8nChat /> {/* Add the chat component here */}
         </ThemeProvider>
       </body>
     </html>
