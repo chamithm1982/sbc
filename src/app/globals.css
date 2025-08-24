@@ -48,6 +48,19 @@
     --chart-3: 71 41% 75%; /* Lighter secondary */
     --chart-4: 80 27% 67%; /* Lighter border */
     --chart-5: 30 30% 50%; /* Darker primary */
+
+    /* n8n Chat Widget Customization */
+    --chat--toggle--background: hsl(var(--primary));
+    --chat--toggle--hover--background: hsl(var(--primary) / 0.9);
+    --chat--toggle--active--background: hsl(var(--primary) / 0.8);
+    --chat--toggle--color: hsl(var(--primary-foreground));
+    --chat--header--background: hsl(var(--primary));
+    --chat--header--color: hsl(var(--primary-foreground));
+    --chat--message--user--background: hsl(var(--primary));
+    --chat--message--user--color: hsl(var(--primary-foreground));
+    --chat--window--width: 400px;
+    --chat--window--height: 600px;
+    --chat--border-radius: var(--radius);
   }
 
   .dark {
