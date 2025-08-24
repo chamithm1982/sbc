@@ -17,26 +17,25 @@ export async function POST(request: Request) {
       body: JSON.stringify(body),
     });
 
-    if (!webhookResponse.ok) {
-      const errorText = await webhookResponse.text();
-      console.error(`Webhook response was not ok: ${webhookResponse.status} ${webhookResponse.statusText} - Body: ${errorText}`);
-      // Attempt to parse the error from N8N to provide a more specific message
-      try {
-        const errorJson = JSON.parse(errorText);
-        return NextResponse.json({ message: errorJson.message || 'Error from webhook' }, { status: webhookResponse.status });
-      } catch (e) {
-        return NextResponse.json({ message: 'Error from webhook', details: errorText }, { status: webhookResponse.status });
-      }
-    }
-
+    // We get the body regardless of whether the call was successful
     const responseData = await webhookResponse.json();
+
+    if (!webhookResponse.ok) {
+      // Log the detailed error for debugging on the server
+      console.error(`Webhook response was not ok: ${webhookResponse.status} ${webhookResponse.statusText} - Body: ${JSON.stringify(responseData)}`);
+      
+      // Send a structured error response back to the client
+      const errorMessage = responseData.message || 'Error from webhook';
+      return NextResponse.json({ error: errorMessage }, { status: webhookResponse.status });
+    }
     
-    // Return the response from the webhook to our chatbot client.
+    // Return the successful response from the webhook to our chatbot client.
     return NextResponse.json(responseData, { status: 200 });
 
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     console.error('Error in /api/chat route:', errorMessage);
-    return NextResponse.json({ message: 'Internal Server Error', error: errorMessage }, { status: 500 });
+    // Return a structured error for unexpected issues in this route
+    return NextResponse.json({ error: 'Internal Server Error', details: errorMessage }, { status: 500 });
   }
 }

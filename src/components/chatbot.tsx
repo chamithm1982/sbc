@@ -60,20 +60,21 @@ const Chatbot = () => {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        // If the response is not OK, display the detailed error from the API as a bot message.
-        const errorMessageText = data.message || data.details || 'Sorry, an unknown error occurred.';
-        const errorMessage: Message = { text: `Error: ${errorMessageText}`, sender: 'bot' };
-        setMessages(prevMessages => [...prevMessages, errorMessage]);
-      } else {
+      let botMessage: Message;
+
+      if (response.ok) {
         // If the response is OK, display the bot's message.
-        const botMessage: Message = { text: data.output || "Sorry, I couldn't understand that.", sender: 'bot' };
-        setMessages(prevMessages => [...prevMessages, botMessage]);
+        botMessage = { text: data.output || "Sorry, I couldn't understand that.", sender: 'bot' };
+      } else {
+        // If the response is not OK, display the specific error from the API.
+        const errorMessageText = data.error || data.message || 'Sorry, an unknown error occurred.';
+        botMessage = { text: `Error: ${errorMessageText}`, sender: 'bot' };
       }
+      setMessages(prevMessages => [...prevMessages, botMessage]);
 
     } catch (error) {
-      // Catch network errors or other unexpected issues.
-      const errorMessageText = error instanceof Error ? error.message : "An unknown error occurred.";
+      // Catch network errors or other unexpected issues during the fetch itself.
+      const errorMessageText = error instanceof Error ? error.message : "A network error occurred.";
       console.error("Error sending message:", errorMessageText);
       const errorMessage: Message = { text: `Sorry, something went wrong: ${errorMessageText}`, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, errorMessage]);
