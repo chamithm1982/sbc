@@ -55,9 +55,9 @@ export async function submitBooking(
   
   // This should be the absolute URL of your deployed application.
   // Using a relative URL will work for client-side, but server-side actions need the full URL.
-  // We determine the host based on the environment.
-  const host = process.env.NODE_ENV === 'production' 
-    ? 'https://sbc.algorankau.com' 
+  // We determine the host based on the VERCEL_URL or a fallback for local development.
+  const host = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:9002';
   const apiUrl = `${host}/api/book`;
 
