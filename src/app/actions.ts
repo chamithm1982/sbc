@@ -159,13 +159,13 @@ export async function sendChatMessage(
 
     try {
         const responseData = JSON.parse(responseBody);
-        // N8N chat webhook typically returns a `text` field in the JSON response
-        const botResponse = responseData.text;
+        // The webhook returns an `output` field in the JSON response
+        const botResponse = responseData.output;
 
         if (botResponse) {
           return { message: botResponse };
         } else {
-          console.warn('Webhook response JSON is missing the "text" field.');
+          console.warn('Webhook response JSON is missing the "output" field.');
           return { message: "I've received your message, but I don't have a specific response right now." };
         }
         
