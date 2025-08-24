@@ -3,22 +3,11 @@
 
 import { useEffect } from 'react';
 
-// This component uses the n8n chat embed script directly from a CDN 
-// to avoid previous npm installation issues.
-
 const N8N_WEBHOOK_URL = 'https://n8n.algorankau.com/webhook/87bbccd3-111d-407f-8ecc-90dac1611f61/chat';
-
-declare global {
-  interface Window {
-    n8nChat: {
-      createChat: (config: any) => void;
-    };
-  }
-}
 
 const N8nChat = () => {
   useEffect(() => {
-    // Check if the script is already on the page to avoid duplicates
+    // Prevent script from being added multiple times
     if (document.getElementById('n8n-chat-script')) {
       return;
     }
@@ -26,24 +15,14 @@ const N8nChat = () => {
     const script = document.createElement('script');
     script.id = 'n8n-chat-script';
     script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.js';
+    
+    // Use data attributes for automatic initialization by the script
+    script.dataset.webhookUrl = N8N_WEBHOOK_URL;
+    script.dataset.position = 'bottom-right';
+
     script.async = true;
     script.defer = true;
-
-    script.onload = () => {
-      // Once the script is loaded, the `n8nChat` object is available on the window
-      if (window.n8nChat) {
-        window.n8nChat.createChat({
-          webhookUrl: N8N_WEBHOOK_URL,
-          chatContainer: {
-            position: 'bottom-right',
-            width: '400px',
-            height: '600px',
-          },
-          // Custom styles are applied via CSS variables in globals.css
-        });
-      }
-    };
-
+    
     document.body.appendChild(script);
 
     // Cleanup function to remove the script when the component unmounts
@@ -55,7 +34,7 @@ const N8nChat = () => {
     };
   }, []);
 
-  return null; // This component doesn't render any visible elements itself
+  return null; // This component does not render any visible elements itself
 };
 
 export default N8nChat;
