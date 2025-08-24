@@ -118,7 +118,7 @@ export async function sendChatMessage(
   }
   
   const userMessage = validatedFields.data.message;
-  const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/03c30f9f-dd73-47e7-9e6e-3d62cd820960';
+  const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/03c30f9f-dd73-47e7-9e6e-3d62cd820960';
   
   const payload = {
     sessionId: randomUUID(), // Generate a unique ID for the session
