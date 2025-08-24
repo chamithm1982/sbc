@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import './globals.css';
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -33,19 +34,21 @@ export default function RootLayout({
           <Toaster />
         </ThemeProvider>
         
-        {/* n8n Chatbot Scripts */}
-        <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js"></script>
-        <script
+        <Script
+          id="n8n-chat-config"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
-              if (window.n8nChat) {
-                window.n8nChat.createChat({
-                  webhookUrl: 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802',
-                });
-              }
+              window.n8nChat = {
+                webhookUrl: "https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802",
+              };
             `,
           }}
-        ></script>
+        />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.umd.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
