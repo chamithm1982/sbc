@@ -55,7 +55,7 @@ export async function submitBooking(
   }
   
   // The N8N webhook URL to send the booking data to directly.
-  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/263c5ea4-dd81-4768-bc94-cc36cb641802';
+  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802';
 
 
   // Prepare the data for sending, ensuring the date is in a standard string format.
