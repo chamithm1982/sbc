@@ -54,13 +54,9 @@ export async function submitBooking(
     };
   }
   
-  // This should be the absolute URL of your deployed application.
-  // Using a relative URL will work for client-side, but server-side actions need the full URL.
-  // We determine the host based on the VERCEL_URL or a fallback for local development.
-  const host = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:9002';
-  const apiUrl = `${host}/api/book`;
+  // The N8N webhook URL to send the booking data to directly.
+  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook-test/263c5ea4-dd81-4768-bc94-cc36cb641802';
+
 
   // Prepare the data for sending, ensuring the date is in a standard string format.
   const payload = {
@@ -69,26 +65,29 @@ export async function submitBooking(
   };
 
   try {
-    // Send the validated data to our own API route.
-    const response = await fetch(apiUrl, {
+    // Send the validated data directly to the N8N webhook.
+    const response = await fetch(n8nWebhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     });
+    
+    console.log(`N8N Response Status: ${response.status}`);
+    const responseBody = await response.text();
+    console.log(`N8N Response Body: ${responseBody}`);
 
-    // Check if the API route call was successful.
+    // Check if the webhook call was successful.
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `API route response was not ok: ${response.status}`);
+      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText}`);
     }
     
     // Return a success message.
     return { message: 'Thank you! Your booking request has been sent.', success: true };
   } catch (error: unknown) {
     // Log the detailed error for debugging purposes.
-    console.error('Error submitting to the /api/book route:', error);
+    console.error('Error submitting to the N8N webhook:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
     return {
       message: `Sorry, there was a problem sending your request. Error: ${errorMessage}`,
