@@ -62,6 +62,12 @@ export async function submitBooking(
     : 'http://localhost:9002';
   const apiUrl = `${host}/api/book`;
 
+  // Prepare the data for sending, ensuring the date is in a standard string format.
+  const payload = {
+    ...validatedFields.data,
+    preferredDate: validatedFields.data.preferredDate.toISOString(),
+  };
+
   try {
     // Send the validated data to our own API route.
     const response = await fetch(apiUrl, {
@@ -69,7 +75,7 @@ export async function submitBooking(
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(validatedFields.data),
+      body: JSON.stringify(payload),
     });
 
     // Check if the API route call was successful.
