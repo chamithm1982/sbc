@@ -2,6 +2,11 @@
 import { Leaf, Scissors, Sparkles, Users, Star, Crown, Check, MessageSquareQuote, HelpCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
+// --- N8N WEBHOOK URLS ---
+export const N8N_BOOKING_WEBHOOK_URL = 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802';
+export const N8N_CHAT_WEBHOOK_URL = 'https://n8n.algorankau.com/webhook/03c30f9f-dd73-47e7-9e6e-3d62cd820960';
+
+
 export interface NavLinkItem {
   href: string;
   label: string;
@@ -252,4 +257,3 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
-

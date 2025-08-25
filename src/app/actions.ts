@@ -3,6 +3,7 @@
 
 import { z } from 'zod';
 import { randomUUID } from 'crypto';
+import { N8N_BOOKING_WEBHOOK_URL, N8N_CHAT_WEBHOOK_URL } from '@/lib/constants';
 
 // Zod schema for validating form data from the booking form.
 const BookingFormSchema = z.object({
@@ -48,18 +49,14 @@ export async function submitBooking(
     };
   }
 
-  // Use the environment variable for the webhook URL.
-  // Fallback to the last known production URL if not set.
-  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/263c5ea4-dd81-4768-bc94-cc36cb641802';
-  
   // The data is valid, prepare it for sending.
   const payload = validatedFields.data;
 
-  console.log(`Attempting to send booking data to: ${n8nWebhookUrl}`);
+  console.log(`Attempting to send booking data to: ${N8N_BOOKING_WEBHOOK_URL}`);
   console.log('Payload:', JSON.stringify(payload, null, 2));
 
   try {
-    const response = await fetch(n8nWebhookUrl, {
+    const response = await fetch(N8N_BOOKING_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +119,6 @@ export async function sendChatMessage(
   }
   
   const userMessage = validatedFields.data.message;
-  const n8nWebhookUrl = process.env.N8N_CHAT_WEBHOOK_URL || 'https://n8n.algorankau.com/webhook/03c30f9f-dd73-47e7-9e6e-3d62cd820960';
   
   const payload = {
     sessionId: randomUUID(),
@@ -131,7 +127,7 @@ export async function sendChatMessage(
   };
 
   try {
-    const response = await fetch(n8nWebhookUrl, {
+    const response = await fetch(N8N_CHAT_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
