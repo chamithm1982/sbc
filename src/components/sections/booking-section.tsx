@@ -1,21 +1,21 @@
 
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import React, { useEffect, useRef, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { CalendarIcon, Loader2 } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Calendar } from '@/components/ui/calendar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
@@ -23,46 +23,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
 import { SERVICES_DATA, SERVICE_PACKAGES_DATA } from '@/lib/constants';
-import { useFormStatus } from 'react-dom';
 import { submitBooking, FormState } from '@/app/actions';
-import { useEffect, useRef, useActionState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-
-const FormSchema = z.object({
-  name: z.string().min(2, {
-    message: 'Name must be at least 2 characters.',
-  }),
-  email: z.string().email({
-    message: 'Please enter a valid email.',
-  }),
-  service: z.string().min(1, { message: 'Please select a service.' }),
-  preferredDate: z.date({
-    required_error: 'A preferred date is required.',
-  }),
-  message: z.string().optional(),
-});
 
 const allServices = [...SERVICES_DATA, ...SERVICE_PACKAGES_DATA];
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button 
-      type="submit" 
-      size="lg" 
+    <Button
+      type="submit"
+      size="lg"
       className="w-full bg-primary hover:bg-primary/90 rounded-lg text-lg"
       disabled={pending}
+      aria-disabled={pending}
     >
       {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       Request Appointment
@@ -70,25 +46,13 @@ function SubmitButton() {
   );
 }
 
-
 export default function BookingSection() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const [date, setDate] = React.useState<Date>();
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      service: '',
-      message: '',
-    },
-  });
-
-  const [state, formAction] = useActionState<FormState, FormData>(submitBooking, {
-    message: '',
-    success: false,
-  });
+  const initialState: FormState = { message: '', success: false, errors: {} };
+  const [state, formAction] = useActionState(submitBooking, initialState);
 
   useEffect(() => {
     if (state.message) {
@@ -97,8 +61,8 @@ export default function BookingSection() {
           title: 'Request Sent!',
           description: state.message,
         });
-        form.reset();
         formRef.current?.reset();
+        setDate(undefined);
       } else {
         toast({
           title: 'Error',
@@ -107,8 +71,8 @@ export default function BookingSection() {
         });
       }
     }
-  }, [state, form, toast]);
-  
+  }, [state, toast]);
+
   return (
     <section id="book" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,124 +87,80 @@ export default function BookingSection() {
               </p>
             </CardHeader>
             <CardContent>
-              <Form {...form}>
-                <form
-                  ref={formRef}
-                  action={formAction}
-                  className="space-y-6 font-body"
-                >
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g. Jane Doe" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email Address</FormLabel>
-                        <FormControl>
-                          <Input type="email" placeholder="e.g. jane.doe@example.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="service"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Service You're Inquiring About</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value} name={field.name}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select a service" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {allServices.map((service) => (
-                              <SelectItem key={service.id} value={service.name}>
-                                {service.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="preferredDate"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Preferred Date</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
+              <form ref={formRef} action={formAction} className="space-y-6 font-body">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input id="name" name="name" placeholder="e.g. Jane Doe" required />
+                  {state.errors?.name && <p className="text-sm font-medium text-destructive">{state.errors.name[0]}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input id="email" name="email" type="email" placeholder="e.g. jane.doe@example.com" required />
+                  {state.errors?.email && <p className="text-sm font-medium text-destructive">{state.errors.email[0]}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="service">Service You're Inquiring About</Label>
+                  <Select name="service" required>
+                    <SelectTrigger id="service">
+                      <SelectValue placeholder="Select a service" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {allServices.map((service) => (
+                        <SelectItem key={service.id} value={service.name}>
+                          {service.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {state.errors?.service && <p className="text-sm font-medium text-destructive">{state.errors.service[0]}</p>}
+                </div>
+
+                <div className="space-y-2">
+                   <Label htmlFor="date">Preferred Date</Label>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                                id="date"
                                 variant={'outline'}
                                 className={cn(
-                                  'w-full pl-3 text-left font-normal',
-                                  !field.value && 'text-muted-foreground'
+                                    'w-full justify-start text-left font-normal',
+                                    !date && 'text-muted-foreground'
                                 )}
-                              >
-                                {field.value ? (
-                                  format(field.value, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                            >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {date ? format(date, 'PPP') : <span>Pick a date</span>}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
                             <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              disabled={(date) => date < new Date() || date < new Date('1900-01-01')}
-                              initialFocus
+                                mode="single"
+                                selected={date}
+                                onSelect={setDate}
+                                disabled={(d) => d < new Date(new Date().setDate(new Date().getDate() - 1)) || d < new Date("1900-01-01")}
+                                initialFocus
                             />
-                          </PopoverContent>
-                        </Popover>
-                        {/* Hidden input to pass date to server action */}
-                        <input type="hidden" name={field.name} value={field.value?.toISOString() || ''} />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
+                        </PopoverContent>
+                    </Popover>
+                    {/* The date is passed as a string because FormData stringifies it. */}
+                    <input type="hidden" name="preferredDate" value={date?.toString() ?? ''} />
+                    {state.errors?.preferredDate && <p className="text-sm font-medium text-destructive">{state.errors.preferredDate[0]}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message">Additional Message (Optional)</Label>
+                  <Textarea
+                    id="message"
                     name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Additional Message (Optional)</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            placeholder="Any extra details, e.g., preferred time..."
-                            className="resize-none"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    placeholder="Any extra details, e.g., preferred time..."
+                    className="resize-none"
                   />
-                  
-                  <SubmitButton />
-                </form>
-              </Form>
+                   {state.errors?.message && <p className="text-sm font-medium text-destructive">{state.errors.message[0]}</p>}
+                </div>
+
+                <SubmitButton />
+              </form>
             </CardContent>
           </Card>
         </div>
