@@ -64,6 +64,10 @@ export async function submitBooking(
     preferredDate: validatedFields.data.preferredDate.toISOString(),
   };
 
+  console.log(`Attempting to send booking data to: ${n8nWebhookUrl}`);
+  console.log('Payload:', JSON.stringify(payload, null, 2));
+
+
   try {
     // Send the validated data directly to the N8N webhook.
     const response = await fetch(n8nWebhookUrl, {
@@ -74,13 +78,13 @@ export async function submitBooking(
       body: JSON.stringify(payload),
     });
     
-    console.log(`N8N Response Status: ${response.status}`);
     const responseBody = await response.text();
+    console.log(`N8N Response Status: ${response.status}`);
     console.log(`N8N Response Body: ${responseBody}`);
 
     // Check if the webhook call was successful.
     if (!response.ok) {
-      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText}`);
+      throw new Error(`Webhook response was not ok: ${response.status} ${response.statusText} - ${responseBody}`);
     }
     
     // Return a success message.
