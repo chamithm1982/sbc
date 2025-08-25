@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useEffect, useRef, useActionState } from 'react';
+import { useState, useEffect, useRef, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { CalendarIcon, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
@@ -49,7 +49,8 @@ function SubmitButton() {
 export default function BookingSection() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = useState<Date>();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const initialState: FormState = { message: '', success: false, errors: {} };
   const [state, formAction] = useActionState(submitBooking, initialState);
@@ -72,6 +73,11 @@ export default function BookingSection() {
       }
     }
   }, [state, toast]);
+
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    setIsCalendarOpen(false); // Close the calendar on date selection
+  };
 
   return (
     <section id="book" className="py-16 md:py-24 bg-background">
@@ -119,7 +125,7 @@ export default function BookingSection() {
 
                 <div className="space-y-2">
                    <Label htmlFor="date">Preferred Date</Label>
-                    <Popover>
+                    <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                         <PopoverTrigger asChild>
                             <Button
                                 id="date"
@@ -137,7 +143,7 @@ export default function BookingSection() {
                             <Calendar
                                 mode="single"
                                 selected={date}
-                                onSelect={setDate}
+                                onSelect={handleDateSelect}
                                 disabled={(d) => d < new Date(new Date().setDate(new Date().getDate() - 1)) || d < new Date("1900-01-01")}
                                 initialFocus
                             />
