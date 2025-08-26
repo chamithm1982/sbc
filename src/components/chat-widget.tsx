@@ -32,7 +32,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'bot',
-      text: "Hello! How can I help you today? Feel free to ask about our services, pricing, or availability."
+      text: "Hi I am Ally how can I help you today?"
     }
   ]);
   const formRef = useRef<HTMLFormElement>(null);
