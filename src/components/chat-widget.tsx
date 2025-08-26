@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { sendChatMessage, ChatState } from '@/app/actions';
 import { useFormStatus } from 'react-dom';
 import { cn } from '@/lib/utils';
@@ -36,7 +36,7 @@ export default function ChatWidget() {
     }
   ]);
   const formRef = useRef<HTMLFormElement>(null);
-  const scrollViewportRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const [state, formAction] = useActionState<ChatState, FormData>(sendChatMessage, { message: '' });
 
@@ -48,10 +48,13 @@ export default function ChatWidget() {
        setMessages((prevMessages) => [...prevMessages, { sender: 'bot', text: state.error || 'An error occurred.' }]);
     }
   }, [state]);
-
+  
   useEffect(() => {
-    if (scrollViewportRef.current) {
-        scrollViewportRef.current.scrollTop = scrollViewportRef.current.scrollHeight;
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTo({
+        top: scrollAreaRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   }, [messages]);
 
@@ -83,20 +86,20 @@ export default function ChatWidget() {
         "fixed bottom-4 right-4 z-50 transition-all duration-300 w-[calc(100vw-2rem)] max-w-sm",
         isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'
       )}>
-        <Card className="flex flex-col h-[70vh] max-h-[500px] rounded-xl shadow-2xl bg-card">
+        <Card className="flex flex-col h-[70vh] max-h-[600px] rounded-xl shadow-2xl bg-card">
           <CardHeader className="flex flex-row items-center justify-between bg-primary text-primary-foreground p-4 rounded-t-xl">
             <CardTitle className="text-lg font-headline">Chat with us</CardTitle>
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground h-8 w-8">
               <X className="h-5 w-5" />
             </Button>
           </CardHeader>
-          <CardContent className="flex-1 p-0">
-            <ScrollArea className="h-full p-4" viewportRef={scrollViewportRef}>
-              <div className="space-y-4">
+          <CardContent className="flex-1 p-4 overflow-hidden">
+             <ScrollArea className="h-full" viewportRef={scrollAreaRef}>
+              <div className="space-y-4 pr-4">
                 {messages.map((message, index) => (
                   <div key={index} className={cn("flex items-end gap-2", message.sender === 'user' ? 'justify-end' : 'justify-start')}>
                     {message.sender === 'bot' && (
-                      <Avatar className="h-8 w-8">
+                      <Avatar className="h-8 w-8 self-start">
                         <AvatarFallback><Bot className="h-5 w-5" /></AvatarFallback>
                       </Avatar>
                     )}
@@ -105,10 +108,10 @@ export default function ChatWidget() {
                         ? 'bg-primary text-primary-foreground rounded-br-none' 
                         : 'bg-accent text-accent-foreground rounded-bl-none'
                     )}>
-                      <p>{message.text}</p>
+                      <p className="break-words">{message.text}</p>
                     </div>
                      {message.sender === 'user' && (
-                      <Avatar className="h-8 w-8">
+                      <Avatar className="h-8 w-8 self-start">
                         <AvatarFallback><User className="h-5 w-5" /></AvatarFallback>
                       </Avatar>
                     )}
