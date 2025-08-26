@@ -36,7 +36,7 @@ export default function ChatWidget() {
     }
   ]);
   const formRef = useRef<HTMLFormElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   const [state, formAction] = useActionState<ChatState, FormData>(sendChatMessage, { message: '' });
 
@@ -50,11 +50,8 @@ export default function ChatWidget() {
   }, [state]);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
+    if (scrollViewportRef.current) {
+        scrollViewportRef.current.scrollTop = scrollViewportRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -94,7 +91,7 @@ export default function ChatWidget() {
             </Button>
           </CardHeader>
           <CardContent className="flex-1 p-0">
-            <ScrollArea className="h-full p-4" ref={scrollAreaRef}>
+            <ScrollArea className="h-full p-4" viewportRef={scrollViewportRef}>
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <div key={index} className={cn("flex items-end gap-2", message.sender === 'user' ? 'justify-end' : 'justify-start')}>
