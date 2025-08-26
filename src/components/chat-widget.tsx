@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useActionState } from 'react';
-import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, User, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -36,7 +36,7 @@ export default function ChatWidget() {
     }
   ]);
   const formRef = useRef<HTMLFormElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   const [state, formAction] = useActionState<ChatState, FormData>(sendChatMessage, { message: '' });
 
@@ -50,9 +50,9 @@ export default function ChatWidget() {
   }, [state]);
   
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    if (scrollViewportRef.current) {
+      scrollViewportRef.current.scrollTo({
+        top: scrollViewportRef.current.scrollHeight,
         behavior: 'smooth'
       });
     }
@@ -94,13 +94,13 @@ export default function ChatWidget() {
             </Button>
           </CardHeader>
           <CardContent className="flex-1 p-4 overflow-hidden">
-             <ScrollArea className="h-full" viewportRef={scrollAreaRef}>
+             <ScrollArea className="h-full" viewportRef={scrollViewportRef}>
               <div className="space-y-4 pr-4">
                 {messages.map((message, index) => (
                   <div key={index} className={cn("flex items-end gap-2", message.sender === 'user' ? 'justify-end' : 'justify-start')}>
                     {message.sender === 'bot' && (
                       <Avatar className="h-8 w-8 self-start">
-                        <AvatarFallback><Bot className="h-5 w-5" /></AvatarFallback>
+                        <AvatarFallback><Sparkles className="h-5 w-5" /></AvatarFallback>
                       </Avatar>
                     )}
                     <div className={cn("max-w-[80%] rounded-lg px-3 py-2 text-sm",
