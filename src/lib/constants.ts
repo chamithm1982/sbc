@@ -62,19 +62,19 @@ export const SERVICES_DATA: Service[] = [
     dataAiHint: 'hair coloring',
     ctaText: 'View Details',
     ctaLink: '/services/hair-coloring',
-    price: 'From $250'
+    price: 'From $120'
   },
   {
-    id: 'skintreatment',
-    name: 'Rejuvenating Skin Therapies',
-    description: 'Restore your skin\'s glow with our advanced, personalized skin treatments.',
+    id: 'treatments',
+    name: 'Advanced Treatments & Skincare',
+    description: 'Restore your glow with keratin smoothing, repair masks, and rejuvenating facials.',
     longDescription: 'Our licensed estheticians provide a range of rejuvenating skin therapies tailored to your specific skin concerns. Whether you\'re looking to address aging, acne, dryness, or sensitivity, we offer facials, peels, and advanced treatments using high-quality, effective skincare products to leave your skin feeling refreshed, renewed, and radiant.',
     icon: Leaf,
     image: '/service3.png',
     dataAiHint: 'skin treatment',
-    ctaText: 'Book Skin Therapy',
-    ctaLink: '#book',
-    price: 'From $349'
+    ctaText: 'Explore Treatments',
+    ctaLink: '/services/treatments',
+    price: 'From $45'
   },
 ];
 
