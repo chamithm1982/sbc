@@ -48,8 +48,8 @@ export const SERVICES_DATA: Service[] = [
     icon: Scissors,
     image: '/service1.png',
     dataAiHint: 'hair styling',
-    ctaText: 'Book Haircut',
-    ctaLink: '#book',
+    ctaText: 'View Details',
+    ctaLink: '/services/haircut',
     price: 'From $80'
   },
   {

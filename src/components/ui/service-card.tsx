@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface ServiceCardProps {
   id: string;
@@ -28,7 +27,6 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({
   name,
   description,
-  longDescription,
   image,
   dataAiHint,
   icon: Icon,
@@ -76,17 +74,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               ))}
             </ul>
           </div>
-        )}
-
-        {longDescription && (
-           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1" className="border-b-0">
-              <AccordionTrigger className="text-sm text-primary hover:no-underline p-0 font-body">View Details</AccordionTrigger>
-              <AccordionContent className="text-sm text-foreground/70 pt-2 font-body">
-                {longDescription}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
         )}
       </CardContent>
       <CardFooter>
