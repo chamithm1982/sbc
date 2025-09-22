@@ -1,7 +1,6 @@
 
 "use client";
 
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
@@ -19,16 +18,14 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center text-center text-white mt-[-100px]">
-      <Image
-        src="/service1.png"
-        alt="Serene salon interior or beautifully styled hair"
-        fill={true}
-        sizes="100vw"
-        style={{ objectFit: 'cover' }}
-        quality={90}
-        priority
-        className="fixed inset-0 z-[-3]"
-        data-ai-hint="salon interior"
+      <video
+        src="/sbc hero.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover z-[-3]"
+        aria-label="Salon background video"
       />
       <canvas id="canvas" className="fixed inset-0 w-full h-full z-[-2] pointer-events-none"></canvas>
       <div className="fixed inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-[-1]"></div>
@@ -69,4 +66,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
