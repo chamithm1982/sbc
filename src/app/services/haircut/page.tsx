@@ -38,6 +38,7 @@ const haircutService = {
     { src: 'https://picsum.photos/seed/style1/600/400', alt: 'Chic bob haircut', dataAiHint: 'bob haircut' },
     { src: 'https://picsum.photos/seed/style2/600/400', alt: 'Long layered hairstyle', dataAiHint: 'long hairstyle' },
     { src: 'https://picsum.photos/seed/style3/600/400', alt: 'Elegant updo for a special occasion', dataAiHint: 'elegant updo' },
+    { src: 'https://picsum.photos/seed/style4/600/400', alt: "Men's stylish haircut", dataAiHint: 'mens haircut' },
   ],
 };
 
@@ -108,7 +109,7 @@ export default function HaircutServicePage() {
         {/* Gallery Section */}
         <div className="mt-16 md:mt-24">
           <h2 className="font-headline text-3xl md:text-4xl text-primary text-center mb-10">Style Inspiration</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {haircutService.galleryImages.map((image, index) => (
               <div key={index} className="relative aspect-video rounded-lg overflow-hidden shadow-md group">
                 <Image
