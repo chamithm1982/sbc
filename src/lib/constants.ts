@@ -170,7 +170,7 @@ export const CONTACT_DETAILS = {
   email: 'salonbcurls@gmail.com',
   addressLine1: '12 Princes Hwy',
   addressLine2: 'Dandenong, VIC 3175, Australia',
-  mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50341.69614760088!2d145.1843513486328!3d-37.986422700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad615a1a0b3f8a7%3A0x5045675218cd0e0!2sDandenong%20VIC%203175!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus'
+  mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.83543450937!2d144.9537363153164!3d-37.81720997975195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e0!2s12%20Princes%20Hwy%2C%20Dandenong%20VIC%203175%2C%20Australia!5e0!3m2!1sen!2sus!4v1620202020202'
 };
 
 export const OPENING_HOURS = [
