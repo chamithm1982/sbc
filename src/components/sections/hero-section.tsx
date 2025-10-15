@@ -36,12 +36,6 @@ const HeroSection = () => {
         <p className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
           Exquisite Hair & Beauty in Dandenong, Victoria.
         </p>
-        
-        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-body font-semibold text-lg py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <Link href="#book">
-            Book Today!
-          </Link>
-        </Button>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm !text-white/90">
           <div className="flex items-center space-x-1">
