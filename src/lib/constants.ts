@@ -110,7 +110,7 @@ export const TEAM_DATA: TeamMember[] = [
     name: 'Suresh',
     title: 'Lead Stylist & Founder',
     bio: 'With over 15 years of experience and multiple awards, Suresh brings passion and precision to every client interaction, specializing in transformative hair artistry.',
-    image: 'https://placehold.co/400x400.png',
+    image: '/suresh.jpg',
     dataAiHint: 'hairstylist portrait',
   },
   {
