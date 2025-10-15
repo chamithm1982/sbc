@@ -92,7 +92,6 @@ const Footer = () => {
 
         <div className="text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Salon B Curls. All Rights Reserved.</p>
-          <p className="mt-1">Designed with <span role="img" aria-label="heart">❤️</span> by an AI Engineer.</p>
         </div>
       </div>
     </footer>
