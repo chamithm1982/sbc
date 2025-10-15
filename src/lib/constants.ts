@@ -166,7 +166,7 @@ export const WHY_CHOOSE_US_POINTS: WhyChooseUsPoint[] = [
 ];
 
 export const CONTACT_DETAILS = {
-  phone: '(03) 9876 5432',
+  phone: '0404 631 980',
   email: 'bookings@salonbcurls.com.au',
   addressLine1: '12 Princes Hwy',
   addressLine2: 'Dandenong, VIC 3175, Australia',
