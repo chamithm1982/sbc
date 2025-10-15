@@ -36,9 +36,6 @@ const HeroSection = () => {
         <p className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
           Exquisite Hair & Beauty in Dandenong, Victoria.
         </p>
-        <p className="font-body text-xs max-w-3xl mx-auto mb-10 !text-white/80 leading-relaxed drop-shadow-sm">
-          Escape the Everyday. At Salon B Curls, we craft personalized hair and rejuvenating skin experiences designed to restore your glow and empower your confidence. Step in, unwind, and leave feeling utterly renewed and exquisitely beautiful.
-        </p>
         
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-body font-semibold text-lg py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
           <Link href="#book">
