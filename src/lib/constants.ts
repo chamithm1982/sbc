@@ -118,7 +118,7 @@ export const TEAM_DATA: TeamMember[] = [
     name: 'Thilanka',
     title: 'Senior Colourist & Stylist',
     bio: 'Thilanka is a creative force, known for beautiful balayage work and ability to craft personalized color that enhances natural beauty.',
-    image: 'https://placehold.co/400x400.png',
+    image: '/thilanka.jpg',
     dataAiHint: 'woman portrait',
   },
   {
