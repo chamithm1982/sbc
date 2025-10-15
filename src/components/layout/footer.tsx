@@ -1,7 +1,9 @@
+
 "use client";
 
 import Link from 'next/link';
-import { Waves, Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
 import { NAV_LINKS, CONTACT_DETAILS, SOCIAL_LINKS, OPENING_HOURS } from '@/lib/constants';
 import { Separator } from '@/components/ui/separator';
 
@@ -15,7 +17,7 @@ const Footer = () => {
           {/* Column 1: Logo and About */}
           <div>
             <Link href="/" className="flex items-center space-x-2 text-2xl font-headline font-bold text-primary hover:text-primary/80 transition-colors mb-4">
-              <Waves className="h-7 w-7" />
+              <Image src="/SBClogoclearbg.png" alt="Salon B Curls Logo" width={28} height={28} />
               <span>Salon B Curls</span>
             </Link>
             <p className="text-sm leading-relaxed">

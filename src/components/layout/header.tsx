@@ -2,8 +2,9 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Menu, X, Waves } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { NAV_LINKS } from '@/lib/constants';
 import { DarkModeToggle } from '@/components/dark-mode-toggle';
@@ -33,7 +34,7 @@ const Header = () => {
       <div className="w-full px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2 text-xl sm:text-2xl font-headline font-bold text-primary hover:text-primary/80 transition-colors">
-            <Waves className="h-6 w-6 sm:h-7 sm:w-7" />
+            <Image src="/SBClogoclearbg.png" alt="Salon B Curls Logo" width={28} height={28} className="h-6 w-6 sm:h-7 sm:w-7" />
             <span>Salon B Curls</span>
           </Link>
 
