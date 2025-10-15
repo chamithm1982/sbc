@@ -126,7 +126,7 @@ export const TEAM_DATA: TeamMember[] = [
     name: 'Sarah Chen',
     title: 'Lead Beauty Therapist',
     bio: 'Sarah is dedicated to holistic skin health, offering customized treatments that address concerns and promote a radiant, youthful complexion.',
-    image: 'https://placehold.co/400x400.png',
+    image: '/sarah.jpg',
     dataAiHint: 'therapist portrait',
   },
 ];
