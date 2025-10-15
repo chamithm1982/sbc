@@ -1,18 +1,36 @@
+
 "use client";
 
 import { SERVICES_DATA, SERVICE_PACKAGES_DATA } from '@/lib/constants';
 import ServiceCard from '@/components/ui/service-card';
 import { Separator } from '@/components/ui/separator';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { cn } from '@/lib/utils';
 
 const ServicesSection = () => {
+  const { ref: titleRef, isVisible: isTitleVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: textRef, isVisible: isTextVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
     <section id="services" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">
+          <h2 
+            ref={titleRef}
+            className={cn(
+              "font-headline text-4xl md:text-5xl font-bold text-primary mb-4 transition-all duration-700",
+              isTitleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+          >
             Explore Our World of Bespoke Beauty
           </h2>
-          <p className="font-body text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
+          <p 
+            ref={textRef}
+            className={cn(
+              "font-body text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed transition-all duration-700 delay-200",
+              isTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+          >
             Tired of one-size-fits-all beauty? At Salon B Curls, every service is a masterpiece, meticulously crafted to address your unique hair and skin aspirations. From vibrant, healthy color and precision cuts to restorative skin therapies, we combine the finest techniques and premium products for truly exceptional results.
           </p>
         </div>
