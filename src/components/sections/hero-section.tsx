@@ -29,9 +29,9 @@ const HeroSection = () => {
       
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
         
-        <p className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
+        <h1 className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
           Exquisite Hair & Beauty in Dandenong, Victoria.
-        </p>
+        </h1>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm !text-white/90">
           <div className="flex items-center space-x-1">
