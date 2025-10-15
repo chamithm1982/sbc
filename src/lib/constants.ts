@@ -168,7 +168,7 @@ export const WHY_CHOOSE_US_POINTS: WhyChooseUsPoint[] = [
 export const CONTACT_DETAILS = {
   phone: '(03) 9876 5432',
   email: 'bookings@salonbcurls.com.au',
-  addressLine1: '123 Curl Street',
+  addressLine1: '12 Princes Hwy',
   addressLine2: 'Dandenong, VIC 3175, Australia',
   mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50341.69614760088!2d145.1843513486328!3d-37.986422700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad615a1a0b3f8a7%3A0x5045675218cd0e0!2sDandenong%20VIC%203175!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus'
 };
