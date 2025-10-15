@@ -28,9 +28,7 @@ const HeroSection = () => {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-[-1]"></div>
       
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight !text-white drop-shadow-lg">
-          Unleash Your Inner Radiance
-        </h1>
+        
         <p className="font-headline text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight !text-white/90 drop-shadow-md">
           Exquisite Hair & Beauty in Dandenong, Victoria.
         </p>
