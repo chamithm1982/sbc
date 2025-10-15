@@ -14,7 +14,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] md:min-h-screen flex items-end justify-center text-center text-white mt-[-100px] pb-16 md:pb-24">
+    <section className="relative min-h-screen flex items-end justify-center text-center text-white pb-16 md:pb-24">
       <video
         src="/herobgnew.mp4"
         autoPlay
