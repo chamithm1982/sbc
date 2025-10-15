@@ -1,8 +1,6 @@
 
 "use client";
 
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { Star } from 'lucide-react';
 import { useEffect } from 'react';
 import { renderCanvas } from '@/components/ui/canvas';
@@ -16,7 +14,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center text-center text-white mt-[-100px]">
+    <section className="relative min-h-[80vh] md:min-h-screen flex items-end justify-center text-center text-white mt-[-100px] pb-16 md:pb-24">
       <video
         src="/herobgnew.mp4"
         autoPlay
@@ -29,7 +27,7 @@ const HeroSection = () => {
       <canvas id="canvas" className="fixed inset-0 w-full h-full z-[-2] pointer-events-none"></canvas>
       <div className="fixed inset-0 bg-gradient-to-br from-primary/50 via-black/60 to-accent/30 z-[-1]"></div>
       
-      <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-36 lg:pt-40 pb-16 md:pb-20 lg:pb-24">
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight !text-white drop-shadow-lg">
           Unleash Your Inner Radiance
         </h1>
