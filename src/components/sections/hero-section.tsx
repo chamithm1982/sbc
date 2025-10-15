@@ -16,7 +16,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-end justify-center text-center text-white pb-16 md:pb-24">
       <video
-        src="/herobgnew.mp4"
+        src="/herovid.mp4"
         autoPlay
         loop
         muted
