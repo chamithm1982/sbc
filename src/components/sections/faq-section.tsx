@@ -1,3 +1,4 @@
+
 "use client";
 
 import { HelpCircle } from 'lucide-react';
@@ -17,7 +18,7 @@ const FaqSection = () => {
           <h2 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="font-body text-lg md:text-xl text-accent-foreground/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-body text-lg md:text-xl text-foreground max-w-2xl mx-auto leading-relaxed">
             Have questions? We&apos;ve got answers. Find information about our services, booking, and more.
           </p>
         </div>
