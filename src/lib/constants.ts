@@ -117,7 +117,7 @@ export const TEAM_DATA: TeamMember[] = [
     id: 'thilanka',
     name: 'Thilanka',
     title: 'Senior Colourist & Stylist',
-    bio: 'Thilanka is a creative force, known for beautiful balayage work and ability to craft personalized color that enhances natural beauty.',
+    bio: 'Celebrated locally and internationally, Thilanka is a true artist known for makeup and beauty treatments that enhance, not hide. With a touch of magic, she brings out your natural glow like no one else.',
     image: '/th2.jpg',
     dataAiHint: 'woman portrait',
   },
@@ -202,7 +202,7 @@ export const TESTIMONIALS_DATA: Testimonial[] = [
     id: 'sarah-p',
     quote: "I had the Radiance Revival Package and it was divine. My skin is glowing and my hair has never looked better. Highly recommend for a proper pampering session!",
     name: "Sarah P.",
-    image: "https://placehold.co/100x100.png",
+    image: "/sarah.jpg",
     dataAiHint: "happy client",
     stars: 5,
   },
@@ -249,3 +249,5 @@ export const FAQ_DATA: FaqItem[] = [
     answer: 'We use a curated selection of premium, professional-grade hair and skin care products known for their quality and effectiveness, ensuring the best results while prioritizing the health of your hair and skin.'
   }
 ];
+
+    
