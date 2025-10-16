@@ -118,7 +118,7 @@ export const TEAM_DATA: TeamMember[] = [
     name: 'Thilanka',
     title: 'Senior Colourist & Stylist',
     bio: 'Thilanka is a creative force, known for beautiful balayage work and ability to craft personalized color that enhances natural beauty.',
-    image: '/thilanka.jpg',
+    image: '/th2.jpg',
     dataAiHint: 'woman portrait',
   },
 ];
