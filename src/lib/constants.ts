@@ -116,8 +116,8 @@ export const TEAM_DATA: TeamMember[] = [
   {
     id: 'thilanka',
     name: 'Thilanka',
-    title: 'Senior Colourist & Stylist',
-    bio: 'Celebrated locally and internationally, Thilanka is a true artist known for makeup and beauty treatments that enhance, not hide. With a touch of magic, she brings out your natural glow like no one else.',
+    title: 'Where Beauty Meets Magic',
+    bio: "Celebrated locally and internationally, Thilanka is a true artist known for makeup and beauty treatments that enhance, not hide. With a touch of magic, she brings out your natural glow like no one else.",
     image: '/th2.jpg',
     dataAiHint: 'woman portrait',
   },
