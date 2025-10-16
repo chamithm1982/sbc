@@ -37,7 +37,7 @@ const haircutService = {
   ],
   galleryImages: [
     { src: '/hair1.jpg', alt: 'Chic bob haircut', dataAiHint: 'bob haircut' },
-    { src: 'https://picsum.photos/seed/style2/600/400', alt: 'Long layered hairstyle', dataAiHint: 'long hairstyle' },
+    { src: '/image 2.jpg', alt: 'Long layered hairstyle', dataAiHint: 'long hairstyle' },
     { src: 'https://picsum.photos/seed/style3/600/400', alt: 'Elegant updo for a special occasion', dataAiHint: 'elegant updo' },
     { src: 'https://picsum.photos/seed/style4/600/400', alt: "Men's stylish haircut", dataAiHint: 'mens haircut' },
   ],
