@@ -121,14 +121,6 @@ export const TEAM_DATA: TeamMember[] = [
     image: '/thilanka.jpg',
     dataAiHint: 'woman portrait',
   },
-  {
-    id: 'sarah-chen',
-    name: 'Sarah Chen',
-    title: 'Lead Beauty Therapist',
-    bio: 'Sarah is dedicated to holistic skin health, offering customized treatments that address concerns and promote a radiant, youthful complexion.',
-    image: '/sarah.jpg',
-    dataAiHint: 'therapist portrait',
-  },
 ];
 
 export interface WhyChooseUsPoint {
