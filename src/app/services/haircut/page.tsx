@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +15,7 @@ const haircutService = {
   breadcrumb: 'Services > Haircuts & Styling',
   heroImage: '/service1.png',
   dataAiHint: 'hair styling salon',
-  mainDescription: "At Salon B Curls, a haircut is more than just a trim—it's a personalized art form. Our philosophy centers on creating a look that not only complements your features and hair type but also seamlessly integrates with your lifestyle. We believe a great haircut is the foundation of confidence, empowering you to look and feel your best every single day.",
+  mainDescription: "At Salon B Curls, a haircut is more than just a trim—it's a personalized art form. Our philosophy centers on creating a look that not only complements your features and hair type, but also seamlessly integrates with your lifestyle. We believe a great haircut is the foundation of confidence, empowering you to look and feel your best every single day.",
   price: 'From $80',
   features: [
     {
@@ -35,7 +36,7 @@ const haircutService = {
     },
   ],
   galleryImages: [
-    { src: 'https://picsum.photos/seed/style1/600/400', alt: 'Chic bob haircut', dataAiHint: 'bob haircut' },
+    { src: '/hair1.jpg', alt: 'Chic bob haircut', dataAiHint: 'bob haircut' },
     { src: 'https://picsum.photos/seed/style2/600/400', alt: 'Long layered hairstyle', dataAiHint: 'long hairstyle' },
     { src: 'https://picsum.photos/seed/style3/600/400', alt: 'Elegant updo for a special occasion', dataAiHint: 'elegant updo' },
     { src: 'https://picsum.photos/seed/style4/600/400', alt: "Men's stylish haircut", dataAiHint: 'mens haircut' },
